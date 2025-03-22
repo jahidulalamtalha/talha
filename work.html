@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD Talha - Work Experience</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      /* Background image for the whole page – replace with your own URL */
+      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+    /* Header (full-width, like homepage) */
+    header {
+      background: #005f73;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .left-header {
+      display: flex;
+      flex-direction: column;
+    }
+    .left-header .name {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #fff;
+    }
+    .left-header .subtitle {
+      font-size: 1rem;
+      margin-top: 4px;
+      color: #fff;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    nav ul li a:hover {
+      color: #a0d8d3;
+    }
+    /* Container box style for main content */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    /* Main Content area (Work Experiences) */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    /* Work Experience Item */
+    .work-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .work-item:hover {
+      transform: translateY(-5px);
+    }
+    .work-item img {
+      width: 280px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .work-details {
+      flex: 1;
+    }
+    .work-details h3 {
+      color: #005f73;
+      margin-bottom: 0.5rem;
+    }
+    .work-details p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .work-details a {
+      color: #005f73;
+      text-decoration: underline;
+    }
+    /* Footer (full-width, like homepage) */
+    footer {
+      background: #005f73;
+      padding: 1rem 2rem;
+      text-align: center;
+      color: #fff;
+      margin-top: 2rem;
+    }
+    @media (max-width: 768px) {
+      .work-item {
+        flex-direction: column;
+      }
+      .work-item img {
+        width: 100%;
+        height: auto;
+      }
+      .container {
+        margin: 1rem;
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="left-header">
+      <div class="name">MD Talha</div>
+      <div class="subtitle">Work Experiences</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="courses.html">Courses/Workshop</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="work.html">Work Experiences</a></li>
+        <li><a href="research.html">Research Works</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Content Container -->
+  <div class="container">
+    <div class="main-content">
+      <!-- Work Experience 1: Mouza Map Digitizer -->
+      <div class="work-item">
+        <img src="Mouza.jpg" alt="Mouza Map Digitizer">
+        <div class="work-details">
+          <h3>Mouza Map Digitizer</h3>
+          <p><strong>GroupMappers (Volunteer)</strong><br>Jan 2022 - Jun 2022</p>
+          <p>In this role, I meticulously digitized geographic data by converting traditional paper maps into detailed digital formats. This enhanced data accuracy and provided critical support for urban planning and mapping projects.</p>
+        </div>
+      </div>
+      <!-- Work Experience 2: Field Surveyor -->
+      <div class="work-item">
+        <img src="data.jpg" alt="Field Surveyor">
+        <div class="work-details">
+          <h3>Field Surveyor</h3>
+          <p><strong>Fire Hazards Risk Assessment (UGC-JnU Project)</strong><br>2023 - 2024</p>
+          <p>As a Field Surveyor, I conducted comprehensive surveys under the guidance of <a href="https://jnu.ac.bd/fm/pview/10411" target="_blank">Dr. Neegar Sultana</a>. My work involved collecting and analyzing critical fire hazard data to support improved urban safety measures.</p>
+        </div>
+      </div>
+      <!-- Work Experience 3: Research Assistant -->
+      <div class="work-item">
+        <img src="RA.jpg" alt="Research Assistant">
+        <div class="work-details">
+          <h3>Research Assistant</h3>
+          <p><strong>Supervisor: <a href="https://jnu.ac.bd/fm/pview/10311" target="_blank">Dr. N M Refat Nasher</a></strong><br>Jun 2023 - Jun 2024</p>
+          <p>In this role, I collaborated on several environmental research projects focusing on GIS applications. I was responsible for data collection, spatial analysis, and model development, all of which contributed to meaningful research findings and recommendations.</p>
+        </div>
+      </div>
+      <!-- Work Experience 4: Assistant GIS Analyst -->
+      <div class="work-item">
+        <img src="gis.jpg" alt="Assistant GIS Analyst">
+        <div class="work-details">
+          <h3>Assistant GIS Analyst</h3>
+          <p><strong>IUGIP, <a href="https://www.scplbd.com/" target="_blank">Sheltech Consultants (Pvt.) Ltd.</a></strong><br>Jan 2025 - Present</p>
+          <p>Currently, I apply advanced GIS techniques to support urban governance and infrastructure projects. My responsibilities include detailed spatial analysis, digital mapping, and integrating data from multiple sources to optimize urban planning strategies.</p>
+        </div>
+      </div>
+      <!-- Work Experience 5: Instructor (IELTS) -->
+      <div class="work-item">
+        <img src="ielts.jpg" alt="Instructor (IELTS)">
+        <div class="work-details">
+          <h3>Instructor (IELTS)</h3>
+          <p><strong><a href="https://facebook.com/groups/jnurhss/" target="_blank">JnURHSS, Jagannath University</a></strong><br>Jan 2025 - Present</p>
+          <p>As an IELTS Instructor, I design and deliver comprehensive language courses, develop tailored lesson plans, and provide academic support to empower students to achieve high levels of English proficiency.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 MD Talha. All rights reserved.</p>
+  </footer>
+
+<script src="https://static.app/js/static.js" type="text/javascript"></script>
+</body>
+</html>

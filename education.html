@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD Talha - Education</title>
+  <style>
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+    /* Header & Footer (full-width, matching homepage style) */
+    header, footer {
+      width: 100%;
+      background: #005f73;
+      padding: 1rem 2rem;
+      color: #fff;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .left-header {
+      display: flex;
+      flex-direction: column;
+    }
+    .left-header .name {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    .left-header .subtitle {
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    nav ul li a:hover { color: #a0d8d3; }
+    footer { text-align: center; margin-top: auto; }
+    /* Main Container Box */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    /* Section Headings */
+    .section { margin-bottom: 2rem; }
+    .section h2 {
+      border-bottom: 2px solid #caf0f8;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #005f73;
+    }
+    /* Education Card Layout */
+    .edu-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .edu-item h3 {
+      color: #005f73;
+      margin-bottom: 0.3rem;
+    }
+    .edu-item p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    .edu-item .certificate {
+      text-align: center;
+    }
+    .edu-item .certificate img {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 768px) {
+      .container { margin: 1rem; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="left-header">
+      <div class="name">MD Talha</div>
+      <div class="subtitle">Education</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="courses.html">Courses/Workshop</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="work.html">Work Experiences</a></li>
+        <li><a href="research.html">Research Works</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <!-- M.Sc. (Thesis) Section -->
+    <section class="section" id="msc">
+      <h2>M.Sc. (Thesis) (Ongoing)</h2>
+      <div class="edu-item">
+        <h3>M.Sc. in Geography & Environment</h3>
+        <p><strong>Institution:</strong> Jagannath University, Dhaka-1100</p>
+        <p><strong>Passing Year:</strong> 2024 (Expected)</p>
+        <p><strong>CGPA:</strong> 3.71 (first semester)</p>
+        <p><strong>Course Focus:</strong> Environmental Modeling, GIS & Remote Sensing</p>
+        <p><strong>Achievements:</strong> Awarded the National Science & Technology (NST) Fellowship for Thesis Research.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=M.Sc.+Certificate" alt="M.Sc. Certificate">
+        </div>
+      </div>
+    </section>
+    
+    <!-- B.Sc. (Honours) Section -->
+    <section class="section" id="bsc">
+      <h2>B.Sc. (Honours)</h2>
+      <div class="edu-item">
+        <h3>B.Sc. (Honours) in Geography & Environment</h3>
+        <p><strong>Institution:</strong> Jagannath University, Dhaka-1100</p>
+        <p><strong>Course Highlights:</strong> Developed a strong foundation in GIS, remote sensing, and environmental analysis. Gained hands-on experience with spatial data processing and analytical tools.</p>
+        <p><strong>Achievements:</strong> Successfully published the undergraduate dissertation in a reputed book series.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=B.Sc.+Certificate" alt="B.Sc. Certificate">
+        </div>
+      </div>
+    </section>
+    
+    <!-- HSC Section -->
+    <section class="section" id="hsc">
+      <h2>HSC</h2>
+      <div class="edu-item">
+        <h3>Higher Secondary Certificate (HSC)</h3>
+        <p><strong>Institution:</strong> Jahangirnagar University School and College, Dhaka Board (Science)</p>
+        <p><strong>Passing Year:</strong> 2018</p>
+        <p><strong>GPA:</strong> 4.50 (Out of 5.00)</p>
+        <p>Completed Higher Secondary education with a strong emphasis on science subjects, forming a solid base for further studies.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=HSC+Certificate" alt="HSC Certificate">
+        </div>
+      </div>
+    </section>
+    
+    <!-- SSC Section -->
+    <section class="section" id="ssc">
+      <h2>SSC</h2>
+      <div class="edu-item">
+        <h3>Secondary School Certificate (SSC)</h3>
+        <p><strong>Institution:</strong> Jahangirnagar University School and College, Dhaka Board (Science)</p>
+        <p><strong>Passing Year:</strong> 2016</p>
+        <p><strong>GPA:</strong> 5.00 (Out of 5.00)</p>
+        <p>Excelled in secondary education with top marks and a strong academic record, laying the groundwork for higher studies.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=SSC+Certificate" alt="SSC Certificate">
+        </div>
+      </div>
+    </section>
+    
+    <!-- Courses & Workshops Section -->
+    <section class="section" id="courses">
+      <h2>Courses & Workshops</h2>
+      <div class="edu-item">
+        <h3>The Crossroad of Exploring Geospatial Science</h3>
+        <p><strong>Organizer:</strong> GroupMappers</p>
+        <p><strong>Duration:</strong> 1 day | <strong>Year:</strong> 2022</p>
+        <p>This one-day workshop focused on exploring the fundamentals of geospatial science through interactive sessions and group discussions. It provided insights into the latest trends and techniques in geospatial analysis and emphasized collaborative learning.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=Workshop+Certificate" alt="Workshop Certificate">
+        </div>
+      </div>
+      <div class="edu-item">
+        <h3>Mauza Georeferencing and Digitizing using ArcGIS</h3>
+        <p><strong>Organizer:</strong> GMGI Solutions Ltd.</p>
+        <p><strong>Duration:</strong> 1 day | <strong>Year:</strong> 2022</p>
+        <p>This practical workshop focused on georeferencing and digitizing historical maps using ArcGIS. It enhanced skills in converting traditional cartographic data into digital formats and improved spatial data analysis capabilities.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=Workshop+Certificate" alt="Workshop Certificate">
+        </div>
+      </div>
+      <div class="edu-item">
+        <h3>How to Write a Research Article and Thesis Paper</h3>
+        <p><strong>Organizer:</strong> Research Tech Hub</p>
+        <p><strong>Duration:</strong> 2 hours | <strong>Year:</strong> 2024</p>
+        <p>This short course provided essential guidelines for academic writing. It covered the structure, style, and best practices for writing research articles and thesis papers, helping participants enhance their scholarly communication skills.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=Workshop+Certificate" alt="Workshop Certificate">
+        </div>
+      </div>
+    </section>
+    
+    <!-- Extra-Curricular Activities Section -->
+    <section class="section" id="extra-curricular">
+      <h2>Extra-Curricular Activities</h2>
+      <div class="edu-item">
+        <h3>Joint Secretary: Green Voice</h3>
+        <p><strong>Duration:</strong> 2022 - 2023</p>
+        <p>Served as Joint Secretary in Green Voice, a youth organization dedicated to environmental conservation. Organized events, campaigns, and initiatives to raise environmental awareness and promote sustainable practices.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=Extra+Curricular+Certificate" alt="Extra-Curricular Certificate">
+        </div>
+      </div>
+      <div class="edu-item">
+        <h3>Football Player: Inter-Departmental Tournament</h3>
+        <p><strong>Years:</strong> 2022 &amp; 2024</p>
+        <p>Actively participated as a football player in inter-departmental tournaments, demonstrating teamwork, discipline, and leadership. Contributed to team success while balancing academic commitments.</p>
+        <div class="certificate">
+          <img src="https://via.placeholder.com/300x200?text=Extra+Curricular+Certificate" alt="Extra-Curricular Certificate">
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MD Talha. All rights reserved.</p>
+  </footer>
+
+<script src="https://static.app/js/static.js" type="text/javascript"></script>
+</body>
+</html>

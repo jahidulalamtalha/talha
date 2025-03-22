@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD Talha - Gallery</title>
+  <style>
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+    /* Header & Footer (full-width, matching homepage style) */
+    header, footer {
+      width: 100%;
+      background: #005f73;
+      padding: 1rem 2rem;
+      color: #fff;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .left-header {
+      display: flex;
+      flex-direction: column;
+    }
+    .left-header .name { font-size: 1.8rem; font-weight: bold; }
+    .left-header .subtitle { font-size: 1rem; margin-top: 4px; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    nav ul li a:hover { color: #a0d8d3; }
+    footer { text-align: center; margin-top: auto; }
+    /* Main Container Box */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    /* Section Heading */
+    .section { margin-bottom: 2rem; }
+    .section h2 {
+      border-bottom: 2px solid #caf0f8;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #005f73;
+    }
+    /* Gallery Item Card Layout */
+    .gallery-item {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .gallery-item h3 {
+      color: #005f73;
+      margin-bottom: 0.5rem;
+    }
+    .gallery-item p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+    /* Image Gallery for each item */
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .image-gallery img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    /* PDF Link styling */
+    .pdf-link {
+      margin-top: 0.5rem;
+    }
+    .pdf-link a {
+      color: #005f73;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+      .container { margin: 1rem; padding: 1rem; }
+      .image-gallery img { width: 100%; height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="left-header">
+      <div class="name">MD Talha</div>
+      <div class="subtitle">Gallerie</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="courses.html">Courses/Workshop</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="work.html">Work Experiences</a></li>
+        <li><a href="research.html">Research Works</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Content Container -->
+  <div class="container">
+    <!-- Gallery Section: Undergraduate Fieldworks & Coursework -->
+    <section class="section" id="gallery">
+      <h2>Undergraduate Works Gallery</h2>
+      
+      <!-- Work 1: First Year Fieldwork -->
+      <div class="gallery-item">
+        <h3>First Year Fieldwork: Socio-demographic and Physiographic Study of Lalakhal and Jaflong</h3>
+        <p>This field study focused on understanding the socio-demographic characteristics and physiographic features of Lalakhal and Jaflong in Sylhet District. Data were collected through observations and surveys, highlighting the local culture and physical landscape.</p>
+        <div class="image-gallery">
+          <img src="https://via.placeholder.com/300x200?text=First+Year+Image+1" alt="First Year Fieldwork Image 1">
+          <img src="https://via.placeholder.com/300x200?text=First+Year+Image+2" alt="First Year Fieldwork Image 2">
+        </div>
+      </div>
+      
+      <!-- Work 2: Second Year Fieldwork -->
+      <div class="gallery-item">
+        <h3>Second Year Fieldwork: Cyclone Bulbul Damage in Khulna Division</h3>
+        <p>This fieldwork involved both qualitative and quantitative data collection to assess the impact of Cyclone Bulbul in the Khulna division. The study documented the extent of damage, recovery efforts, and the socio-economic challenges faced by local communities.</p>
+        <div class="image-gallery">
+          <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+1" alt="Second Year Fieldwork Image 1">
+          <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+2" alt="Second Year Fieldwork Image 2">
+          <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+3" alt="Second Year Fieldwork Image 3">
+        </div>
+        <div class="pdf-link">
+          <a href="MDTalha(B-180602073).pdf" target="_blank">View Field Report (PDF)</a>
+        </div>
+      </div>
+      
+      <!-- Work 3: Third Year Fieldwork -->
+      <div class="gallery-item">
+        <h3>Third Year Fieldwork: Geographical and Environmental Analysis of Rejulakhal, Cox's Bazar</h3>
+        <p>This project examined the geographical and environmental conditions of Rejulakhal in Cox's Bazar, focusing on soil and water analysis. The fieldwork provided insights into natural resource distribution and local environmental challenges.</p>
+        <div class="image-gallery">
+          <img src="https://via.placeholder.com/300x200?text=Third+Year+Image+1" alt="Third Year Fieldwork Image 1">
+          <img src="https://via.placeholder.com/300x200?text=Third+Year+Image+2" alt="Third Year Fieldwork Image 2">
+        </div>
+      </div>
+      
+      <!-- Work 4: Fourth Year Fieldwork -->
+      <div class="gallery-item">
+        <h3>Fourth Year Fieldwork: Environmental Analysis and Land Use Survey at Barapukuria Coal Mine Area</h3>
+        <p>This extensive fieldwork involved a detailed environmental analysis and land use survey in the Barapukuria Coal Mine Area, Parbatipur, Dinajpur. The study aimed to assess the environmental impact of mining activities and propose sustainable land management practices.</p>
+        <div class="image-gallery">
+          <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+1" alt="Fourth Year Fieldwork Image 1">
+          <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+2" alt="Fourth Year Fieldwork Image 2">
+          <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+3" alt="Fourth Year Fieldwork Image 3">
+        </div>
+      </div>
+      
+      <!-- Work 5: Coursework -->
+      <div class="gallery-item">
+        <h3>Coursework: Impact of Industrial Effluent on River Pollution - Turag River Case Study</h3>
+        <p>This research project analyzed the impact of industrial effluent on the water quality of the Turag River. Through extensive water sampling and laboratory analysis, the study highlighted the adverse effects of industrial discharge and emphasized the need for stricter environmental regulations.</p>
+        <div class="image-gallery">
+          <img src="https://via.placeholder.com/300x200?text=Coursework+Image+1" alt="Coursework Image 1">
+          <img src="https://via.placeholder.com/300x200?text=Coursework+Image+2" alt="Coursework Image 2">
+        </div>
+        <div class="pdf-link">
+          <a href="Report (Talha).pdf" target="_blank">View Coursework Report (PDF)</a>
+        </div>
+      </div>
+      
+      <!-- Extra-Curricular Work -->
+      <div class="gallery-item">
+        <h3>Extra-Curricular: Inter-Departmental Football Tournament Champion</h3>
+        <p>In addition to academic pursuits, I actively participated in inter-departmental football tournaments and led my team to become champions. This experience honed my teamwork, leadership, and time management skills.</p>
+        <div class="image-gallery">
+          <img src="https://via.placeholder.com/300x200?text=Football+Image+1" alt="Football Tournament Image 1">
+          <img src="https://via.placeholder.com/300x200?text=Football+Image+2" alt="Football Tournament Image 2">
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 MD Talha. All rights reserved.</p>
+  </footer>
+
+<script src="https://static.app/js/static.js" type="text/javascript"></script>
+</body>
+</html>
+#

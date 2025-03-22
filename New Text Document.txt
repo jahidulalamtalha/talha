@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD Talha - Home</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      /* Replace the URL below with an image relevant to remote sensing */
+      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+    /* Wrapper to ensure footer at bottom */
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: rgba(255, 255, 255, 0.9); /* Optional: semi-transparent overlay for readability */
+    }
+    /* Header: Name + Subtitle on Left, Nav on Right */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #ddd;
+      background-color: #fff;
+    }
+    .left-header {
+      display: flex;
+      flex-direction: column;
+    }
+    .left-header .name {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    .left-header .subtitle {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 4px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav ul li a:hover {
+      color: #005f73;
+    }
+    /* Main Content Wrapper */
+    .main-content {
+      flex: 1;
+      max-width: 1200px;
+      margin: 2rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      padding: 0 1rem;
+    }
+    /* Profile Image (circular) */
+    .profile-pic {
+      flex: 1 1 280px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .profile-pic img {
+      width: 280px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+    }
+    /* Info Section */
+    .info-section {
+      flex: 1 1 350px;
+      min-width: 300px;
+      margin: 0 1rem;
+      margin-bottom: 2rem;
+    }
+    .info-section .main-name {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .info-section .about-heading {
+      font-size: 1.25rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .info-section .about-text {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      color: #444;
+    }
+    .circle-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .circle-links a {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+    .circle-links a:hover {
+      background-color: #bbb;
+    }
+    /* Research Interests Section (Right Side Bar) */
+    .interests-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+      margin-top: 1rem;
+      border-left: 1px solid #ddd;
+      padding-left: 1rem;
+    }
+    .interests-section h2 {
+      font-size: 1.2rem;
+      color: #005f73;
+      margin-bottom: 0.5rem;
+    }
+    .interests-section ul {
+      list-style: disc;
+      margin-left: 1.5rem;
+      line-height: 1.5;
+    }
+    /* Footer with Contact Icons Only */
+    footer {
+      background-color: #005f73; /* Blue background */
+      padding: 1rem;
+      text-align: center;
+      color: #000; /* Text in black */
+    }
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .contact-icons a img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .main-content {
+        flex-direction: column;
+      }
+      .info-section {
+        margin: 0 0 2rem 0;
+      }
+      .interests-section {
+        margin-top: 2rem;
+        border-left: none;
+        border-top: 1px solid #ddd;
+        padding-top: 1rem;
+        padding-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Header Section -->
+    <header>
+      <div class="left-header">
+        <div class="name">MD Talha</div>
+        <div class="subtitle">B.Sc. (Honours), M.Sc. (Thesis) (Ongoing)</div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="profile-pic">
+    <img src="E:/Talha/Website/Image_me.jpg" alt="Profile Picture">
+</div>
+
+      <!-- Info Section -->
+      <div class="info-section">
+        <div class="main-name">MD Talha</div>
+        <div class="about-heading">A Bit About Me</div>
+        <div class="about-text">
+          I am an environmental scientist currently pursuing my M.Sc. (Thesis) at Jagannath University, Dhaka.
+          My research focuses on Geographic Information Systems (GIS), Remote Sensing, and Environmental
+          Impact Assessments. I aim to develop innovative solutions for pressing environmental challenges.
+        </div>
+        <!-- Circular Links to Other Pages -->
+        <div class="circle-links">
+          <a href="#">Home</a>
+          <a href="research.html">Research</a>
+          <a href="work.html">Work</a>
+          <a href="achievements.html">Achievements</a>
+        </div>
+      </div>
+
+      <!-- Research Interests (Right Side Bar) -->
+      <div class="interests-section">
+        <h2>Research Interests</h2>
+        <ul>
+          <li>Geographic Information Systems (GIS)</li>
+          <li>Remote Sensing (RS)</li>
+          <li>Environmental Impact Assessment</li>
+          <li>Urban Climate</li>
+          <li>Land Surface Temperature</li>
+          <li>Disaster Management</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <!-- Contact Icons Only (Original Logo Colors) -->
+      <div class="contact-icons">
+        <a href="tel:+8801627144804" title="Phone">
+          <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone" />
+        </a>
+        <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
+          <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email" />
+        </a>
+        <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
+          <img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png" alt="LinkedIn" />
+        </a>
+        <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
+        </a>
+        <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
+          <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google Scholar" />
+        </a>
+        <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
+          <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" />
+        </a>
+      </div>
+      <p>&copy; 2025 MD Talha. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>

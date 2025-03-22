@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MD Talha - Research Works</title>
+  <style>
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+    /* Full-width Header & Footer (same as homepage) */
+    header, footer {
+      width: 100%;
+      background: #005f73;
+      padding: 1rem 2rem;
+      color: #fff;
+    }
+    header { display: flex; align-items: center; justify-content: space-between; }
+    .left-header { display: flex; flex-direction: column; }
+    .left-header .name { font-size: 1.8rem; font-weight: bold; }
+    .left-header .subtitle { font-size: 1rem; margin-top: 4px; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    nav ul li a:hover { color: #a0d8d3; }
+    footer { text-align: center; margin-top: auto; }
+    /* Container Box for Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    /* Section Headings */
+    .section { margin-bottom: 2rem; }
+    .section h2 {
+      border-bottom: 2px solid #caf0f8;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #005f73;
+    }
+    /* Research Item Layout */
+    .research-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #f9f9f9;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      margin-bottom: 1rem;
+    }
+    .research-item:hover { transform: translateY(-5px); }
+    .research-item img {
+      width: 280px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .research-details { flex: 1; }
+    .research-details h3 { color: #005f73; margin-bottom: 0.5rem; }
+    .research-details p { font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem; }
+    .research-details a {
+      color: #005f73;
+      text-decoration: underline;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .research-item { flex-direction: column; }
+      .research-item img { width: 100%; height: auto; }
+      .container { margin: 1rem; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="left-header">
+      <div class="name">MD Talha</div>
+      <div class="subtitle">Research Works</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="courses.html">Courses/Workshop</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="work.html">Work Experiences</a></li>
+        <li><a href="research.html">Research Works</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Peer Reviewed Journals Section -->
+    <section class="section" id="peer-reviewed">
+      <h2>Peer Reviewed Journal Articles</h2>
+      
+      <!-- Research Item 1: Predictive Landslide Susceptibility Modeling -->
+      <div class="research-item">
+        <img src="LSMml.jpg" alt="Predictive Landslide Susceptibility">
+        <div class="research-details">
+          <h3>Predictive Landslide Susceptibility Modeling (2024)</h3>
+          <p><strong>Journal:</strong> Environmental Science and Pollution Research</p>
+          <p>
+            This study presents a novel machine learning–based approach to map landslide susceptibility in Khagrachari district, Bangladesh. By integrating 15 landslide conditioning factors and evaluating three algorithms (RF, BRT, and KNN), the research found that the boosted regression trees model achieved an AUC of 0.95 and an overall accuracy of 82%. The study emphasizes the critical roles of maximum rainfall and elevation, offering valuable insights for disaster management and urban planning.
+          </p>
+          <p>
+            DOI: <a href="https://doi.org/10.1007/s11356-024-34949-5" target="_blank">10.1007/s11356-024-34949-5</a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Research Item 2: Greening & Browning Trend Analysis -->
+      <div class="research-item">
+        <img src="gbt.jpg" alt="Greening & Browning Trend Analysis">
+        <div class="research-details">
+          <h3>Greening & Browning Trend Analysis (2024)</h3>
+          <p><strong>Journal:</strong> Environment, Development and Sustainability</p>
+          <p>
+            This article investigates the dynamic trends in vegetation cover within the Chattogram division using remote sensing data. By analyzing changes in the Normalized Difference Vegetation Index (NDVI) and associated physio-climatic drivers, the study reveals distinct greening patterns interspersed with localized browning. The findings highlight the complex interplay between climate change, land use, and vegetation dynamics.
+          </p>
+          <p>
+            DOI: <a href="https://doi.org/10.1007/s10668-024-05505-5" target="_blank">10.1007/s10668-024-05505-5</a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Research Item 3: Rainwater Harvesting Potential Zone -->
+      <div class="research-item">
+        <img src="rwhpz.jpg" alt="Rainwater Harvesting Potential">
+        <div class="research-details">
+          <h3>Rainwater Harvesting Potential Zone (2025)</h3>
+          <p><strong>Journal:</strong> Journal of Asian Earth Sciences: X</p>
+          <p>
+            This research evaluates the potential zones for rainwater harvesting in hilly regions of Bangladesh by combining machine learning techniques with the Analytical Hierarchy Process (AHP). Detailed analyses of hydrological and topographical parameters identify optimal areas for sustainable water resource management, providing strategic recommendations for water conservation practices.
+          </p>
+          <p>
+            DOI: <a href="https://doi.org/10.1016/j.jaesx.2024.100189" target="_blank">10.1016/j.jaesx.2024.100189</a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Research Item 4: Cooling Benefits of Urban Lakes -->
+      <div class="research-item">
+        <img src="Lstul.jpg" alt="Cooling Benefits of Urban Lakes">
+        <div class="research-details">
+          <h3>Cooling Benefits of Urban Lakes (2025)</h3>
+          <p><strong>Journal:</strong> HydroResearch</p>
+          <p>
+            Focusing on urban climate mitigation, this study quantifies the cooling effects of urban lakes in Dhaka. Using multi-year remote sensing data and statistical analysis, the research demonstrates how urban water bodies contribute to local temperature reduction, thereby mitigating urban heat island effects and supporting sustainable urban design.
+          </p>
+          <p>
+            DOI: <a href="https://doi.org/10.1016/j.hydres.2025.01.001" target="_blank">10.1016/j.hydres.2025.01.001</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Book Chapters Section -->
+    <section class="section" id="book-chapters">
+      <h2>Book Chapters</h2>
+      
+      <div class="research-item">
+        <img src="LSahp.jpg" alt="Landslide Susceptibility Mapping Book Chapter">
+        <div class="research-details">
+          <h3>Landslide Susceptibility Mapping (2024)</h3>
+          <p><strong>Book:</strong> Landslides in the Himalayan Region (Springer Nature)</p>
+          <p>
+            Featured in a comprehensive volume on Himalayan landslides, this book chapter details an integrated approach for mapping landslide susceptibility using both bivariate and multivariate statistical techniques in combination with GIS. The methodology, which combines the Analytical Hierarchy Process (AHP) with frequency ratio models, effectively delineates high-risk zones and aids in disaster mitigation planning.
+          </p>
+          <p>
+            DOI: <a href="https://doi.org/10.1007/978-981-97-4680-4_11" target="_blank">10.1007/978-981-97-4680-4_11</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Research Presentations Section -->
+    <section class="section" id="presentations">
+      <h2>Research Presentations</h2>
+      
+      <div class="research-item">
+        <img src="CV.jpg" alt="Coastal Vulnerability Assessment">
+        <div class="research-details">
+          <h3>Coastal Vulnerability Assessment (2024)</h3>
+          <p>
+            Presented at an international conference in New Delhi, this presentation showcased a data-driven approach to assess coastal vulnerability in Bangladesh. Emphasizing the integration of remote sensing data and machine learning, the work underscored the critical need for robust hazard assessment in coastal regions to guide disaster preparedness and resilience planning.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Ongoing Research Projects Section -->
+    <section class="section" id="ongoing">
+      <h2>Ongoing Research Projects</h2>
+      
+      <div class="research-item">
+        <img src="E:/Talha/Website/placeholder.jpg" alt="Ongoing Research 1">
+        <div class="research-details">
+          <h3>Spatio-temporal Assessment of Ecological Environment Quality using RSEI (2024)</h3>
+          <p>
+            This project involves a comprehensive evaluation of ecological environment quality in Dhaka using the Remote Sensing Ecological Index (RSEI). Currently under review, the study aims to refine the assessment methods and provide actionable insights for urban environmental management.
+          </p>
+        </div>
+      </div>
+      
+      <div class="research-item">
+        <img src="E:/Talha/Website/placeholder.jpg" alt="Ongoing Research 2">
+        <div class="research-details">
+          <h3>Predictive Modeling for Ecotourism Suitability on Saint Martin’s Island</h3>
+          <p>
+            In this project, a hybrid machine learning framework is being developed to predict areas suitable for ecotourism on Saint Martin’s Island. The model integrates various climatic and geospatial parameters and is currently submitted to a journal for review.
+          </p>
+        </div>
+      </div>
+      
+      <div class="research-item">
+        <img src="E:/Talha/Website/placeholder.jpg" alt="Ongoing Research 3">
+        <div class="research-details">
+          <h3>Analysis of Land Surface Albedo and its Influence on LST</h3>
+          <p>
+            This thesis project examines how variations in land surface albedo affect land surface temperature. The work is in progress and will contribute to a better understanding of urban heat island phenomena.
+          </p>
+        </div>
+      </div>
+      
+      <div class="research-item">
+        <img src="E:/Talha/Website/placeholder.jpg" alt="Ongoing Research 4">
+        <div class="research-details">
+          <h3>Assessment of Livability Degradation in Dhaka Metropolitan City</h3>
+          <p>
+            Focused on urban sustainability, this project uses remote sensing techniques to assess livability degradation in Dhaka. By mapping key environmental and infrastructural parameters, the study aims to inform policy for urban improvement.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MD Talha. All rights reserved.</p>
+  </footer>
+
+<script src="https://static.app/js/static.js" type="text/javascript"></script>
+</body>
+</html>
