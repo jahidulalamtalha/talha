@@ -45,6 +45,7 @@
     }
     nav ul li a:hover { color: #a0d8d3; }
     footer { text-align: center; margin-top: auto; }
+
     /* Main Container Box */
     .container {
       max-width: 1200px;
@@ -80,18 +81,28 @@
       line-height: 1.5;
       margin-bottom: 0.5rem;
     }
-    /* Image Gallery for each item */
+    /* Image Gallery: Flexible size with captions */
     .image-gallery {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
       margin-top: 0.5rem;
     }
+    .image-gallery figure {
+      flex: 1 1 300px;
+      margin: 0;
+    }
     .image-gallery img {
-      width: 300px;
-      height: 200px;
+      width: 100%;
+      height: auto;
       object-fit: cover;
       border-radius: 4px;
+    }
+    .image-gallery figcaption {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 0.25rem;
+      text-align: center;
     }
     /* PDF Link styling */
     .pdf-link {
@@ -104,7 +115,9 @@
     }
     @media (max-width: 768px) {
       .container { margin: 1rem; padding: 1rem; }
-      .image-gallery img { width: 100%; height: auto; }
+      .image-gallery {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -139,8 +152,14 @@
         <h3>First Year Fieldwork: Socio-demographic and Physiographic Study of Lalakhal and Jaflong</h3>
         <p>This field study focused on understanding the socio-demographic characteristics and physiographic features of Lalakhal and Jaflong in Sylhet District. Data were collected through observations and surveys, highlighting the local culture and physical landscape.</p>
         <div class="image-gallery">
-          <img src="FGD.jpg" alt="Doing FGD with Local People of Jaintapur Upazila, Sylhet">
-          <img src="Household Survey.jpg" alt="Conducting Household Survey">
+          <figure>
+            <img src="FGD.jpg" alt="Doing FGD with Local People of Jaintapur Upazila, Sylhet">
+            <figcaption>FGD with Local People</figcaption>
+          </figure>
+          <figure>
+            <img src="Household Survey.jpg" alt="Conducting Household Survey">
+            <figcaption>Household Survey</figcaption>
+          </figure>
         </div>
       </div>
       
@@ -149,9 +168,18 @@
         <h3>Second Year Fieldwork: Cyclone Bulbul Damage in Khulna Division</h3>
         <p>This fieldwork involved both qualitative and quantitative data collection to assess the impact of Cyclone Bulbul in the Khulna division. The study documented the extent of damage, recovery efforts, and the socio-economic challenges faced by local communities.</p>
         <div class="image-gallery">
-          <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+1" alt="Second Year Fieldwork Image 1">
-          <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+2" alt="Second Year Fieldwork Image 2">
-          <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+3" alt="Second Year Fieldwork Image 3">
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+1" alt="Second Year Image 1">
+            <figcaption>Damage Assessment</figcaption>
+          </figure>
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+2" alt="Second Year Image 2">
+            <figcaption>Recovery Efforts</figcaption>
+          </figure>
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+3" alt="Second Year Image 3">
+            <figcaption>Community Interviews</figcaption>
+          </figure>
         </div>
         <div class="pdf-link">
           <a href="MDTalha(B-180602073).pdf" target="_blank">View Field Report (PDF)</a>
@@ -163,8 +191,14 @@
         <h3>Third Year Fieldwork: Geographical and Environmental Analysis of Rejulakhal, Cox's Bazar</h3>
         <p>This project examined the geographical and environmental conditions of Rejulakhal in Cox's Bazar, focusing on soil and water analysis. The fieldwork provided insights into natural resource distribution and local environmental challenges.</p>
         <div class="image-gallery">
-          <img src="https://via.placeholder.com/300x200?text=Third+Year+Image+1" alt="Third Year Fieldwork Image 1">
-          <img src="https://via.placeholder.com/300x200?text=Third+Year+Image+2" alt="Third Year Fieldwork Image 2">
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Third+Year+Image+1" alt="Third Year Fieldwork Image 1">
+            <figcaption>Soil Sampling</figcaption>
+          </figure>
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Third+Year+Image+2" alt="Third Year Fieldwork Image 2">
+            <figcaption>Water Analysis</figcaption>
+          </figure>
         </div>
       </div>
       
@@ -173,9 +207,18 @@
         <h3>Fourth Year Fieldwork: Environmental Analysis and Land Use Survey at Barapukuria Coal Mine Area</h3>
         <p>This extensive fieldwork involved a detailed environmental analysis and land use survey in the Barapukuria Coal Mine Area, Parbatipur, Dinajpur. The study aimed to assess the environmental impact of mining activities and propose sustainable land management practices.</p>
         <div class="image-gallery">
-          <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+1" alt="Fourth Year Fieldwork Image 1">
-          <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+2" alt="Fourth Year Fieldwork Image 2">
-          <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+3" alt="Fourth Year Fieldwork Image 3">
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+1" alt="Fourth Year Fieldwork Image 1">
+            <figcaption>Land Use Mapping</figcaption>
+          </figure>
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+2" alt="Fourth Year Fieldwork Image 2">
+            <figcaption>Mine Site Analysis</figcaption>
+          </figure>
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+3" alt="Fourth Year Fieldwork Image 3">
+            <figcaption>Environmental Sampling</figcaption>
+          </figure>
         </div>
       </div>
       
@@ -184,8 +227,14 @@
         <h3>Coursework: Impact of Industrial Effluent on River Pollution - Turag River Case Study</h3>
         <p>This research project analyzed the impact of industrial effluent on the water quality of the Turag River. Through extensive water sampling and laboratory analysis, the study highlighted the adverse effects of industrial discharge and emphasized the need for stricter environmental regulations.</p>
         <div class="image-gallery">
-          <img src="https://via.placeholder.com/300x200?text=Coursework+Image+1" alt="Coursework Image 1">
-          <img src="https://via.placeholder.com/300x200?text=Coursework+Image+2" alt="Coursework Image 2">
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Coursework+Image+1" alt="Coursework Image 1">
+            <figcaption>Water Sampling</figcaption>
+          </figure>
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Coursework+Image+2" alt="Coursework Image 2">
+            <figcaption>Lab Analysis</figcaption>
+          </figure>
         </div>
         <div class="pdf-link">
           <a href="Report (Talha).pdf" target="_blank">View Coursework Report (PDF)</a>
@@ -197,8 +246,14 @@
         <h3>Extra-Curricular: Inter-Departmental Football Tournament Champion</h3>
         <p>In addition to academic pursuits, I actively participated in inter-departmental football tournaments and led my team to become champions. This experience honed my teamwork, leadership, and time management skills.</p>
         <div class="image-gallery">
-          <img src="https://via.placeholder.com/300x200?text=Football+Image+1" alt="Football Tournament Image 1">
-          <img src="https://via.placeholder.com/300x200?text=Football+Image+2" alt="Football Tournament Image 2">
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Football+Image+1" alt="Football Tournament Image 1">
+            <figcaption>Team Celebration</figcaption>
+          </figure>
+          <figure>
+            <img src="https://via.placeholder.com/300x200?text=Football+Image+2" alt="Football Tournament Image 2">
+            <figcaption>Match Action</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -211,4 +266,5 @@
 
 </body>
 </html>
-#
+
+
