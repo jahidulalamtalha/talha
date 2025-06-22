@@ -4,248 +4,659 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MD Talha - Education</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Basic Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+    /* Modern CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    :root {
+      --primary: #005f73;
+      --secondary: #0a9396;
+      --accent: #94d2bd;
+      --light: #e9d8a6;
+      --dark: #001219;
+      --text: #333333;
+      --light-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background: 
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 248, 250, 0.9)), 
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') 
+        no-repeat center center fixed;
       background-size: cover;
-      color: #333;
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
     }
-    /* Header & Footer (full-width, matching homepage style) */
-    header, footer {
-      width: 100%;
-      background: #005f73;
-      padding: 1rem 2rem;
-      color: #fff;
+
+    /* Page Wrapper */
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
+    /* Header Styles */
     header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 1rem 2rem;
+      border-bottom: 3px solid var(--accent);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
     }
+
     .left-header {
       display: flex;
       flex-direction: column;
     }
+
     .left-header .name {
       font-size: 1.8rem;
-      font-weight: bold;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
+
     .left-header .subtitle {
       font-size: 1rem;
       margin-top: 4px;
+      opacity: 0.9;
     }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
     }
+
     nav ul li a {
       text-decoration: none;
-      color: #fff;
-      font-weight: bold;
+      color: white;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    nav ul li a:hover { color: #a0d8d3; }
-    footer { text-align: center; margin-top: auto; }
-    /* Main Container Box */
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.15);
     }
-    /* Section Headings */
-    .section { margin-bottom: 2rem; }
-    .section h2 {
-      border-bottom: 2px solid #caf0f8;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      color: #005f73;
+
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
     }
-    /* Education Card Layout */
-    .edu-item {
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--light);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Container */
+    .content-container {
+      flex: 1;
       display: flex;
       flex-direction: column;
+      padding: 2rem 1rem;
+    }
+
+    /* Education Container */
+    .education-container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto 3rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--accent);
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 2px;
+    }
+
+    /* Education Card */
+    .edu-item {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary);
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      width: calc(50% - 40px);
+    }
+
+    .edu-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .edu-item.left {
+      float: left;
+      clear: both;
+    }
+
+    .edu-item.right {
+      float: right;
+      clear: both;
+    }
+
+    .edu-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border: 4px solid white;
+      border-radius: 50%;
+      top: 30px;
+      z-index: 1;
+    }
+
+    .edu-item.left::after {
+      right: -50px;
+    }
+
+    .edu-item.right::after {
+      left: -50px;
+    }
+
+    .edu-item h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .edu-item h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    .edu-item p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .edu-details {
+      display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .detail-card {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(10, 147, 150, 0.1);
+      border-radius: 10px;
       padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #f9f9f9;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      border-left: 4px solid var(--primary);
+    }
+
+    .detail-card h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .detail-card p {
+      font-weight: 500;
+      margin: 0;
+      color: var(--dark);
+    }
+
+    /* Achievement Section */
+    .achievement {
+      background: linear-gradient(to right, rgba(10, 147, 150, 0.1), rgba(148, 210, 189, 0.15));
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .achievement::before {
+      content: '★';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: var(--accent);
+      font-size: 1.5rem;
+      opacity: 0.3;
+    }
+
+    .achievement h4 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .achievement h4 i {
+      color: var(--secondary);
+    }
+
+    .achievement p {
+      margin: 0;
+    }
+
+    .achievement a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .achievement a:hover {
+      color: var(--secondary);
+    }
+
+    .achievement a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .achievement a:hover::after {
+      width: 100%;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      padding: 2rem 1rem;
+      color: white;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
-    .edu-item h3 {
-      color: #005f73;
-      margin-bottom: 0.3rem;
+
+    .contact-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
     }
-    .edu-item p {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
+
+    .contact-icons a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
     }
-    .edu-item .certificate {
-      text-align: center;
-    }
-    .edu-item .certificate img {
-      max-width: 300px;
+
+    .contact-icons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      border-radius: 4px;
-      margin-top: 0.5rem;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
     }
+
+    .contact-icons a:hover::after {
+      transform: translateX(100%);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .timeline::before {
+        left: 30px;
+      }
+      
+      .edu-item {
+        width: calc(100% - 80px);
+        float: none;
+        margin-left: 80px;
+      }
+      
+      .edu-item.left::after,
+      .edu-item.right::after {
+        left: 20px;
+      }
+    }
+
     @media (max-width: 768px) {
-      .container { margin: 1rem; padding: 1rem; }
+      header {
+        padding: 1rem;
+      }
+      
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        gap: 0.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .edu-item {
+        padding: 1.5rem;
+        margin-left: 50px;
+        width: calc(100% - 50px);
+      }
+      
+      .edu-item::after {
+        width: 16px;
+        height: 16px;
+        top: 25px;
+      }
+      
+      .edu-item.left::after,
+      .edu-item.right::after {
+        left: -40px;
+      }
+      
+      .detail-card {
+        min-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .edu-item {
+        padding: 1.25rem;
+        margin-left: 30px;
+        width: calc(100% - 30px);
+      }
+      
+      .edu-item::after {
+        left: -30px;
+        top: 20px;
+      }
+      
+      .edu-item h3 {
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header Section -->
-  <header>
-    <div class="left-header">
-      <div class="name">MD Talha</div>
-      <div class="subtitle">Education</div>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="courses.html">Courses/Workshop</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="work.html">Work Experiences</a></li>
-        <li><a href="research.html">Research Works</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <!-- Main Container -->
-  <div class="container">
-    <!-- M.Sc. (Thesis) Section -->
-    <section class="section" id="msc">
-      <h2>M.Sc. (Thesis) (Ongoing)</h2>
-      <div class="edu-item">
-        <h3>M.Sc. in Geography & Environment</h3>
-        <p><strong>Institution:</strong> Jagannath University, Dhaka-1100</p>
-        <p><strong>Passing Year:</strong> 2024 (Expected)</p>
-        <p><strong>CGPA:</strong> 3.71 (first semester)</p>
-        <p><strong>Course Focus:</strong> Environmental Modeling, GIS & Remote Sensing</p>
-        <p><strong>Achievements:</strong> Awarded the National Science & Technology (NST) Fellowship for Thesis Research.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=M.Sc.+Certificate" alt="M.Sc. Certificate">
+  <div class="page-wrapper">
+    <!-- Header Section -->
+    <header>
+      <div class="header-container">
+        <div class="left-header">
+          <div class="name">MD Talha</div>
+          <div class="subtitle">Education</div>
         </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html" class="active">Education</a></li>
+            <li><a href="courses.html">Courses/Workshop</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="work.html">Work Experiences</a></li>
+            <li><a href="research.html">Research Works</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
       </div>
-    </section>
-    
-    <!-- B.Sc. (Honours) Section -->
-    <section class="section" id="bsc">
-      <h2>B.Sc. (Honours)</h2>
-      <div class="edu-item">
-        <h3>B.Sc. (Honours) in Geography & Environment</h3>
-        <p><strong>Institution:</strong> Jagannath University, Dhaka-1100</p>
-        <p><strong>Course Highlights:</strong> Developed a strong foundation in GIS, remote sensing, and environmental analysis. Gained hands-on experience with spatial data processing and analytical tools.</p>
-        <p><strong>Achievements:</strong> Successfully published the undergraduate dissertation in a reputed book series.</p>
-        <div class="certificate">
-           <img src="Provisional_Certificate.jpg" alt="Provisional_Certificate">
-            <figcaption>BSC Certificate</figcaption>
-        </div>
-      </div>
-    </section>
-    
-    <!-- HSC Section -->
-    <section class="section" id="hsc">
-      <h2>HSC</h2>
-      <div class="edu-item">
-        <h3>Higher Secondary Certificate (HSC)</h3>
-        <p><strong>Institution:</strong> Jahangirnagar University School and College, Dhaka Board (Science)</p>
-        <p><strong>Passing Year:</strong> 2018</p>
-        <p><strong>GPA:</strong> 4.50 (Out of 5.00)</p>
-        <p>Completed Higher Secondary education with a strong emphasis on science subjects, forming a solid base for further studies.</p>
-        <div class="certificate">
-          <img src="HSC.jpg" alt="HSC Certificate">
-          <figcaption>HSC Certificate</figcaption>
-        </div>
-      </div>
-    </section>
-    
-    <!-- SSC Section -->
-    <section class="section" id="ssc">
-      <h2>SSC</h2>
-      <div class="edu-item">
-        <h3>Secondary School Certificate (SSC)</h3>
-        <p><strong>Institution:</strong> Jahangirnagar University School and College, Dhaka Board (Science)</p>
-        <p><strong>Passing Year:</strong> 2016</p>
-        <p><strong>GPA:</strong> 5.00 (Out of 5.00)</p>
-        <p>Excelled in secondary education with top marks and a strong academic record, laying the groundwork for higher studies.</p>
-        <div class="certificate">
-          <img src="SSC.jpg" alt="SSC Certificate">
-          <figcaption>HSC Certificate</figcaption>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Courses & Workshops Section -->
-    <section class="section" id="courses">
-      <h2>Courses & Workshops</h2>
-      <div class="edu-item">
-        <h3>The Crossroad of Exploring Geospatial Science</h3>
-        <p><strong>Organizer:</strong> GroupMappers</p>
-        <p><strong>Duration:</strong> 1 day | <strong>Year:</strong> 2022</p>
-        <p>This one-day workshop focused on exploring the fundamentals of geospatial science through interactive sessions and group discussions. It provided insights into the latest trends and techniques in geospatial analysis and emphasized collaborative learning.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Workshop+Certificate" alt="Workshop Certificate">
-        </div>
-      </div>
-      <div class="edu-item">
-        <h3>Mauza Georeferencing and Digitizing using ArcGIS</h3>
-        <p><strong>Organizer:</strong> GMGI Solutions Ltd.</p>
-        <p><strong>Duration:</strong> 1 day | <strong>Year:</strong> 2022</p>
-        <p>This practical workshop focused on georeferencing and digitizing historical maps using ArcGIS. It enhanced skills in converting traditional cartographic data into digital formats and improved spatial data analysis capabilities.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Workshop+Certificate" alt="Workshop Certificate">
-        </div>
-      </div>
-      <div class="edu-item">
-        <h3>How to Write a Research Article and Thesis Paper</h3>
-        <p><strong>Organizer:</strong> Research Tech Hub</p>
-        <p><strong>Duration:</strong> 2 hours | <strong>Year:</strong> 2024</p>
-        <p>This short course provided essential guidelines for academic writing. It covered the structure, style, and best practices for writing research articles and thesis papers, helping participants enhance their scholarly communication skills.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Workshop+Certificate" alt="Workshop Certificate">
-        </div>
-      </div>
-    </section>
-    
-    <!-- Extra-Curricular Activities Section -->
-    <section class="section" id="extra-curricular">
-      <h2>Extra-Curricular Activities</h2>
-      <div class="edu-item">
-        <h3>Joint Secretary: Green Voice</h3>
-        <p><strong>Duration:</strong> 2022 - 2023</p>
-        <p>Served as Joint Secretary in Green Voice, a youth organization dedicated to environmental conservation. Organized events, campaigns, and initiatives to raise environmental awareness and promote sustainable practices.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Extra+Curricular+Certificate" alt="Extra-Curricular Certificate">
-        </div>
-      </div>
-      <div class="edu-item">
-        <h3>Football Player: Inter-Departmental Tournament</h3>
-        <p><strong>Years:</strong> 2022 &amp; 2024</p>
-        <p>Actively participated as a football player in inter-departmental tournaments, demonstrating teamwork, discipline, and leadership. Contributed to team success while balancing academic commitments.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Extra+Curricular+Certificate" alt="Extra-Curricular Certificate">
-        </div>
-      </div>
-    </section>
-  </div>
-  
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 MD Talha. All rights reserved.</p>
-  </footer>
+    </header>
 
+    <!-- Education Content -->
+    <div class="content-container">
+      <div class="education-container">
+        <h2 class="section-title">Academic Journey</h2>
+        
+        <!-- Timeline Visualization -->
+        <div class="timeline">
+          <!-- M.Sc. (Thesis) -->
+          <div class="edu-item left">
+            <h3>M.Sc. (Thesis) in Geography & Environment</h3>
+            <p>Currently pursuing my Master's degree with a focus on Environmental Modeling, GIS & Remote Sensing.</p>
+            
+            <div class="edu-details">
+              <div class="detail-card">
+                <h4>Institution</h4>
+                <p>Jagannath University, Dhaka-1100</p>
+              </div>
+              <div class="detail-card">
+                <h4>Expected Completion</h4>
+                <p>2024</p>
+              </div>
+              <div class="detail-card">
+                <h4>Current CGPA</h4>
+                <p>3.71 (First Semester)</p>
+              </div>
+            </div>
+            
+            <!-- Achievement Section -->
+            <div class="achievement">
+              <h4><i class="fas fa-trophy"></i> Academic Achievement</h4>
+              <p>Awarded the prestigious <strong>National Science & Technology (NST) Fellowship</strong> for thesis research in recognition of academic excellence and research potential.</p>
+            </div>
+          </div>
+          
+          <!-- B.Sc. (Honours) -->
+          <div class="edu-item right">
+            <h3>B.Sc. (Honours) in Geography & Environment</h3>
+            <p>Developed a strong foundation in GIS, remote sensing, and environmental analysis. Gained hands-on experience with spatial data processing and analytical tools.</p>
+            
+            <div class="edu-details">
+              <div class="detail-card">
+                <h4>Institution</h4>
+                <p>Jagannath University, Dhaka-1100</p>
+              </div>
+              <div class="detail-card">
+                <h4>Completion Year</h4>
+                <p>2022</p>
+              </div>
+              <div class="detail-card">
+                <h4>Key Focus Areas</h4>
+                <p>GIS, Remote Sensing, Environmental Analysis</p>
+              </div>
+            </div>
+            
+            <!-- Achievement Section -->
+            <div class="achievement">
+              <h4><i class="fas fa-book"></i> Publication Achievement</h4>
+              <p>Successfully published undergraduate dissertation as a book chapter: <a href="https://doi.org/10.1007/978-981-97-4680-4_11" target="_blank">View Publication (DOI: 10.1007/978-981-97-4680-4_11)</a></p>
+            </div>
+          </div>
+          
+          <!-- HSC -->
+          <div class="edu-item left">
+            <h3>Higher Secondary Certificate (HSC)</h3>
+            <p>Completed Higher Secondary education with a strong emphasis on science subjects, forming a solid base for further studies in geography and environmental sciences.</p>
+            
+            <div class="edu-details">
+              <div class="detail-card">
+                <h4>Institution</h4>
+                <p>Jahangirnagar University School and College</p>
+              </div>
+              <div class="detail-card">
+                <h4>Board</h4>
+                <p>Dhaka Board (Science)</p>
+              </div>
+              <div class="detail-card">
+                <h4>Passing Year</h4>
+                <p>2018</p>
+              </div>
+              <div class="detail-card">
+                <h4>GPA</h4>
+                <p>4.50 (Out of 5.00)</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- SSC -->
+          <div class="edu-item right">
+            <h3>Secondary School Certificate (SSC)</h3>
+            <p>Excelled in secondary education with top marks and a strong academic record, laying the groundwork for higher studies and developing a foundation for scientific inquiry.</p>
+            
+            <div class="edu-details">
+              <div class="detail-card">
+                <h4>Institution</h4>
+                <p>Jahangirnagar University School and College</p>
+              </div>
+              <div class="detail-card">
+                <h4>Board</h4>
+                <p>Dhaka Board (Science)</p>
+              </div>
+              <div class="detail-card">
+                <h4>Passing Year</h4>
+                <p>2016</p>
+              </div>
+              <div class="detail-card">
+                <h4>GPA</h4>
+                <p>5.00 (Out of 5.00)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-content">
+        <div class="contact-icons">
+          <a href="tel:+8801627144804" title="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+          <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+          <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+        <p class="copyright">&copy; 2025 MD Talha. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
