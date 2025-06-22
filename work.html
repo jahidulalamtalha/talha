@@ -4,208 +4,621 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MD Talha - Work Experience</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Basic Reset */
+    /* Modern CSS Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
+
+    :root {
+      --primary: #005f73;
+      --secondary: #0a9396;
+      --accent: #94d2bd;
+      --light: #e9d8a6;
+      --dark: #001219;
+      --text: #333333;
+      --light-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
     html, body {
       height: 100%;
     }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      /* Background image for the whole page – replace with your own URL */
-      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background: 
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 248, 250, 0.9)), 
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') 
+        no-repeat center center fixed;
       background-size: cover;
-      color: #333;
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
     }
-    /* Header (full-width, like homepage) */
+
+    /* Page Wrapper */
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
     header {
-      background: #005f73;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       padding: 1rem 2rem;
+      border-bottom: 3px solid var(--accent);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
     }
+
     .left-header {
       display: flex;
       flex-direction: column;
     }
+
     .left-header .name {
       font-size: 1.8rem;
-      font-weight: bold;
-      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
+
     .left-header .subtitle {
       font-size: 1rem;
       margin-top: 4px;
-      color: #fff;
+      opacity: 0.9;
     }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
     }
+
     nav ul li a {
       text-decoration: none;
-      color: #fff;
-      font-weight: bold;
+      color: white;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
     }
+
     nav ul li a:hover {
-      color: #a0d8d3;
+      background: rgba(255, 255, 255, 0.15);
     }
-    /* Container box style for main content */
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
     }
-    /* Main Content area (Work Experiences) */
-    .main-content {
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--light);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Container */
+    .content-container {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      padding: 2rem 1rem;
     }
-    /* Work Experience Item */
-    .work-item {
+
+    /* Work Experience Container */
+    .work-container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Work Experience Cards */
+    .work-list {
       display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #f9f9f9;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      flex-direction: column;
+      gap: 2.5rem;
     }
+
+    .work-item {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
     .work-item:hover {
       transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     }
-    .work-item img {
-      width: 280px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 5px;
+
+    .work-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      opacity: 0.2;
     }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .work-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+      position: relative;
+      padding-bottom: 8px;
+    }
+
+    .work-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    .work-org {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .work-org i {
+      color: var(--secondary);
+    }
+
+    .work-duration {
+      background: rgba(10, 147, 150, 0.1);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: 500;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
     .work-details {
-      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    .work-details h3 {
-      color: #005f73;
-      margin-bottom: 0.5rem;
+
+    .work-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text);
     }
-    .work-details p {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
+
+    .work-supervisor {
+      background: linear-gradient(to right, rgba(10, 147, 150, 0.1), rgba(148, 210, 189, 0.15));
+      border-radius: 10px;
+      padding: 1.2rem;
+      border-left: 3px solid var(--primary);
+      font-size: 1.1rem;
     }
-    .work-details a {
-      color: #005f73;
-      text-decoration: underline;
+
+    .work-supervisor strong {
+      color: var(--primary);
     }
-    /* Footer (full-width, like homepage) */
+
+    .work-link {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .work-link:hover {
+      color: var(--secondary);
+    }
+
+    .work-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .work-link:hover::after {
+      width: 100%;
+    }
+
+    /* Footer Styles */
     footer {
-      background: #005f73;
-      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      padding: 2rem 1rem;
+      color: white;
       text-align: center;
-      color: #fff;
-      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
     }
-    @media (max-width: 768px) {
-      .work-item {
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-icons a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .contact-icons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .contact-icons a:hover::after {
+      transform: translateX(100%);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .work-header {
         flex-direction: column;
+        align-items: flex-start;
       }
-      .work-item img {
-        width: 100%;
-        height: auto;
+      
+      .work-duration {
+        align-self: flex-start;
       }
-      .container {
-        margin: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      header {
         padding: 1rem;
+      }
+      
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        gap: 0.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .work-item {
+        padding: 1.5rem;
+      }
+      
+      .work-title {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .work-item {
+        padding: 1.25rem;
+      }
+      
+      .work-title {
+        font-size: 1.2rem;
+      }
+      
+      .work-org {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header Section -->
-  <header>
-    <div class="left-header">
-      <div class="name">MD Talha</div>
-      <div class="subtitle">Work Experiences</div>
+  <div class="page-wrapper">
+    <!-- Header Section -->
+    <header>
+      <div class="header-container">
+        <div class="left-header">
+          <div class="name">MD Talha</div>
+          <div class="subtitle">Work Experiences</div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="courses.html">Courses/Workshop</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="work.html" class="active">Work Experiences</a></li>
+            <li><a href="research.html">Research Works</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Work Experience Content -->
+    <div class="content-container">
+      <div class="work-container">
+        <h2 class="section-title">Professional Journey</h2>
+        
+        <div class="work-list">
+          <!-- Assistant GIS Analyst (Top position) -->
+          <div class="work-item">
+            <div class="work-header">
+              <div>
+                <h3 class="work-title">Assistant GIS Analyst</h3>
+                <div class="work-org">
+                  <i class="fas fa-map"></i>
+                  <span>IUGIP, Sheltech Consultants (Pvt.) Ltd.</span>
+                </div>
+              </div>
+              <div class="work-duration">Jan 2025 - Present</div>
+            </div>
+            
+            <div class="work-details">
+              <p class="work-description">
+                Currently, I apply advanced GIS techniques to support urban governance and infrastructure projects. My responsibilities include detailed spatial analysis, digital mapping, and integrating data from multiple sources to optimize urban planning strategies.
+              </p>
+              <div class="work-supervisor">
+                <strong>Organization:</strong> <a href="https://www.scplbd.com/" target="_blank" class="work-link">Sheltech Consultants (Pvt.) Ltd.</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Instructor (IELTS) -->
+          <div class="work-item">
+            <div class="work-header">
+              <div>
+                <h3 class="work-title">Instructor (IELTS)</h3>
+                <div class="work-org">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                  <span>JnURHSS, Jagannath University</span>
+                </div>
+              </div>
+              <div class="work-duration">Jan 2025 - Present</div>
+            </div>
+            
+            <div class="work-details">
+              <p class="work-description">
+                As an IELTS Instructor, I design and deliver comprehensive language courses, develop tailored lesson plans, and provide academic support to empower students to achieve high levels of English proficiency.
+              </p>
+              <div class="work-supervisor">
+                <strong>Organization:</strong> <a href="https://facebook.com/groups/jnurhss/" target="_blank" class="work-link">JnURHSS, Jagannath University</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Research Assistant -->
+          <div class="work-item">
+            <div class="work-header">
+              <div>
+                <h3 class="work-title">Research Assistant</h3>
+                <div class="work-org">
+                  <i class="fas fa-flask"></i>
+                  <span>Jagannath University</span>
+                </div>
+              </div>
+              <div class="work-duration">Jun 2023 - Jun 2024</div>
+            </div>
+            
+            <div class="work-details">
+              <p class="work-description">
+                Collaborated on several environmental research projects focusing on GIS applications. Responsible for data collection, spatial analysis, and model development, contributing to meaningful research findings and recommendations.
+              </p>
+              <div class="work-supervisor">
+                <strong>Supervisor:</strong> <a href="https://jnu.ac.bd/fm/pview/10311" target="_blank" class="work-link">Dr. N M Refat Nasher</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Field Surveyor -->
+          <div class="work-item">
+            <div class="work-header">
+              <div>
+                <h3 class="work-title">Field Surveyor</h3>
+                <div class="work-org">
+                  <i class="fas fa-map-marked-alt"></i>
+                  <span>Fire Hazards Risk Assessment (UGC-JnU Project)</span>
+                </div>
+              </div>
+              <div class="work-duration">2023 - 2024</div>
+            </div>
+            
+            <div class="work-details">
+              <p class="work-description">
+                Conducted comprehensive surveys to collect and analyze critical fire hazard data to support improved urban safety measures and risk assessment strategies.
+              </p>
+              <div class="work-supervisor">
+                <strong>Supervisor:</strong> <a href="https://jnu.ac.bd/fm/pview/10411" target="_blank" class="work-link">Dr. Neegar Sultana</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Private Tutor -->
+          <div class="work-item">
+            <div class="work-header">
+              <div>
+                <h3 class="work-title">Private Tutor</h3>
+                <div class="work-org">
+                  <i class="fas fa-user-graduate"></i>
+                  <span>CareTutors</span>
+                </div>
+              </div>
+              <div class="work-duration">Jan 2022 - Apr 2024</div>
+            </div>
+            
+            <div class="work-details">
+              <p class="work-description">
+                Provided personalized academic support to secondary and higher secondary level students, developing customized learning plans to address individual needs and enhance academic performance.
+              </p>
+              <div class="work-supervisor">
+                <strong>Subjects:</strong> Mathematics, Physics, Chemistry, English
+              </div>
+            </div>
+          </div>
+          
+          <!-- Mouza Map Digitizer -->
+          <div class="work-item">
+            <div class="work-header">
+              <div>
+                <h3 class="work-title">Mouza Map Digitizer</h3>
+                <div class="work-org">
+                  <i class="fas fa-map-pin"></i>
+                  <span>GroupMappers (Volunteer)</span>
+                </div>
+              </div>
+              <div class="work-duration">Jan 2022 - Jun 2022</div>
+            </div>
+            
+            <div class="work-details">
+              <p class="work-description">
+                Meticulously digitized geographic data by converting traditional paper maps into detailed digital formats, enhancing data accuracy and supporting urban planning initiatives.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="courses.html">Courses/Workshop</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="work.html">Work Experiences</a></li>
-        <li><a href="research.html">Research Works</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <!-- Main Content Container -->
-  <div class="container">
-    <div class="main-content">
-      <!-- Work Experience 1: Mouza Map Digitizer -->
-      <div class="work-item">
-        <img src="Mouza.jpg" alt="Mouza Map Digitizer">
-        <div class="work-details">
-          <h3>Mouza Map Digitizer</h3>
-          <p><strong>GroupMappers (Volunteer)</strong><br>Jan 2022 - Jun 2022</p>
-          <p>In this role, I meticulously digitized geographic data by converting traditional paper maps into detailed digital formats. This enhanced data accuracy and provided critical support for urban planning and mapping projects.</p>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-content">
+        <div class="contact-icons">
+          <a href="tel:+8801627144804" title="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+          <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+          <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
         </div>
+        <p class="copyright">&copy; 2025 MD Talha. All rights reserved.</p>
       </div>
-      <!-- Work Experience 2: Field Surveyor -->
-      <div class="work-item">
-        <img src="data.jpg" alt="Field Surveyor">
-        <div class="work-details">
-          <h3>Field Surveyor</h3>
-          <p><strong>Fire Hazards Risk Assessment (UGC-JnU Project)</strong><br>2023 - 2024</p>
-          <p>As a Field Surveyor, I conducted comprehensive surveys under the guidance of <a href="https://jnu.ac.bd/fm/pview/10411" target="_blank">Dr. Neegar Sultana</a>. My work involved collecting and analyzing critical fire hazard data to support improved urban safety measures.</p>
-        </div>
-      </div>
-      <!-- Work Experience 3: Research Assistant -->
-      <div class="work-item">
-        <img src="RA.jpg" alt="Research Assistant">
-        <div class="work-details">
-          <h3>Research Assistant</h3>
-          <p><strong>Supervisor: <a href="https://jnu.ac.bd/fm/pview/10311" target="_blank">Dr. N M Refat Nasher</a></strong><br>Jun 2023 - Jun 2024</p>
-          <p>In this role, I collaborated on several environmental research projects focusing on GIS applications. I was responsible for data collection, spatial analysis, and model development, all of which contributed to meaningful research findings and recommendations.</p>
-        </div>
-      </div>
-      <!-- Work Experience 4: Assistant GIS Analyst -->
-      <div class="work-item">
-        <img src="gis.jpg" alt="Assistant GIS Analyst">
-        <div class="work-details">
-          <h3>Assistant GIS Analyst</h3>
-          <p><strong>IUGIP, <a href="https://www.scplbd.com/" target="_blank">Sheltech Consultants (Pvt.) Ltd.</a></strong><br>Jan 2025 - Present</p>
-          <p>Currently, I apply advanced GIS techniques to support urban governance and infrastructure projects. My responsibilities include detailed spatial analysis, digital mapping, and integrating data from multiple sources to optimize urban planning strategies.</p>
-        </div>
-      </div>
-      <!-- Work Experience 5: Instructor (IELTS) -->
-      <div class="work-item">
-        <img src="ielts.jpg" alt="Instructor (IELTS)">
-        <div class="work-details">
-          <h3>Instructor (IELTS)</h3>
-          <p><strong><a href="https://facebook.com/groups/jnurhss/" target="_blank">JnURHSS, Jagannath University</a></strong><br>Jan 2025 - Present</p>
-          <p>As an IELTS Instructor, I design and deliver comprehensive language courses, develop tailored lesson plans, and provide academic support to empower students to achieve high levels of English proficiency.</p>
-        </div>
-      </div>
-    </div>
+    </footer>
   </div>
-  
-  <!-- Footer Section -->
-  <footer>
-    <p>&copy; 2025 MD Talha. All rights reserved.</p>
-  </footer>
 </body>
 </html>
