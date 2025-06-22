@@ -3,307 +3,648 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MD Talha - Home</title>
+  <title>MD Talha | Geospatial Researcher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Basic Reset */
+    /* Modern CSS Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
+
+    :root {
+      --primary: #005f73;
+      --secondary: #0a9396;
+      --accent: #94d2bd;
+      --light: #e9d8a6;
+      --dark: #001219;
+      --text: #333333;
+      --light-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
     html, body {
       height: 100%;
     }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      /* Background image for the whole body – replace URL with your own */
-      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background: 
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 248, 250, 0.9)), 
+        url('https://images.unsplash.com/photo-1589496938738-7da23a5b4f33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') 
+        no-repeat center center fixed;
       background-size: cover;
-      color: #333;
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
     }
-    /* Wrapper to ensure footer at bottom */
-    .wrapper {
+
+    /* Page Wrapper */
+    .page-wrapper {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      background: rgba(255, 255, 255, 0.9); /* Semi-transparent overlay for readability */
     }
-    /* Header with same background as footer */
+
+    /* Header Styles */
     header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 1rem 2rem;
+      border-bottom: 3px solid var(--accent);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid #ddd;
-      background-color: #005f73;
-      color: #fff;
+      max-width: 1400px;
+      margin: 0 auto;
     }
+
     .left-header {
       display: flex;
       flex-direction: column;
     }
+
     .left-header .name {
       font-size: 1.8rem;
-      font-weight: bold;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
+
     .left-header .subtitle {
       font-size: 1rem;
       margin-top: 4px;
+      opacity: 0.9;
     }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
     }
+
     nav ul li a {
       text-decoration: none;
-      color: #fff;
+      color: white;
       font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
     }
+
     nav ul li a:hover {
-      color: #a0d8d3;
+      background: rgba(255, 255, 255, 0.15);
     }
-    /* Main Content Wrapper (Aligned Left) */
-    .main-content {
+
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--light);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Container */
+    .content-container {
       flex: 1;
-      max-width: 1200px;
-      margin: 2rem 0 2rem 2rem;
       display: flex;
+      flex-direction: column;
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      display: flex;
+      gap: 3rem;
       flex-wrap: wrap;
       align-items: flex-start;
     }
-    /* Profile Image (circular) */
+
+    /* Profile Image */
     .profile-pic {
       flex: 0 0 auto;
       display: flex;
       justify-content: center;
-      margin-right: 1rem;
       margin-bottom: 2rem;
+      position: relative;
     }
+
     .profile-pic img {
       width: 280px;
       height: 280px;
       object-fit: cover;
       border-radius: 50%;
-      border: 2px solid #ddd;
+      border: 5px solid white;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
     }
+
+    .profile-pic:hover img {
+      transform: scale(1.03);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-pic::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 2px dashed var(--secondary);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     /* Info Section */
     .info-section {
       flex: 1;
       min-width: 300px;
-      margin-bottom: 2rem;
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary);
+      transition: transform 0.3s ease;
     }
-    .info-section .main-name {
-      font-size: 2rem;
-      font-weight: bold;
+
+    .info-section:hover {
+      transform: translateY(-5px);
+    }
+
+    .main-name {
+      font-size: 2.5rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
     }
-    .info-section .about-heading {
-      font-size: 1.25rem;
-      color: #555;
-      margin-bottom: 1rem;
+
+    .main-name::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
     }
-    .info-section .about-text {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 1.5rem;
-      color: #444;
-    }
-    /* Research Works Link */
-    .research-link {
-      margin-bottom: 2rem;
-    }
-    .research-link a {
-      text-decoration: none;
-      color: #005f73;
-      font-weight: bold;
-      border: 2px solid #005f73;
-      padding: 8px 16px;
-      border-radius: 4px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .research-link a:hover {
-      background-color: #005f73;
-      color: #fff;
-    }
-    /* Full Width Research Interests Section */
-    .research-interests {
-      width: 100%;
-      background-color: #eee;
-      padding: 20px 0;
-    }
-    .research-interests h2 {
-      text-align: center;
+
+    .about-heading {
       font-size: 1.5rem;
-      color: #005f73;
-      margin-bottom: 1rem;
+      color: var(--secondary);
+      margin: 1.5rem 0 1rem;
+      font-weight: 600;
     }
-    .interests-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+
+    .about-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .about-text a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .about-text a:hover {
+      color: var(--secondary);
+    }
+
+    .about-text a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .about-text a:hover::after {
+      width: 100%;
+    }
+
+    /* Research Link Button */
+    .research-link {
+      margin: 2rem 0 1rem;
+    }
+
+    .research-link a {
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 12px 28px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 95, 115, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .research-link a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 95, 115, 0.4);
+    }
+
+    .research-link a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .research-link a:hover::after {
+      transform: translateX(100%);
+    }
+
+    /* Research Interests Section */
+    .research-interests {
+      background: linear-gradient(to bottom, rgba(10, 147, 150, 0.85), rgba(0, 95, 115, 0.9));
+      padding: 3rem 0;
+      position: relative;
+      z-index: 10;
+      margin-top: 2rem;
+    }
+
+    .research-interests::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=20') center/cover;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 2rem;
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--light);
+      border-radius: 2px;
+    }
+
+    .interests-container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 0 20px;
     }
+
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
     .interest-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 10px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      width: 180px;
-      margin: 0 auto;
+      padding: 25px 15px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    .interest-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .interest-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
     .interest-item img {
       width: 96px;
       height: 96px;
       object-fit: contain;
-      margin-bottom: 8px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
     }
+
+    .interest-item:hover img {
+      transform: scale(1.1);
+    }
+
     .interest-item span {
-      font-size: 1rem;
+      font-size: 1.1rem;
       text-align: center;
+      font-weight: 600;
+      color: var(--primary);
     }
-    /* Footer with Contact Icons */
+
+    /* Footer Styles */
     footer {
-      background-color: #005f73;
-      padding: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      padding: 2rem 1rem;
+      color: white;
       text-align: center;
-      color: #000;
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
     }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     .contact-icons {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
     }
-    .contact-icons a img {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
+
+    .contact-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
     }
-    /* Responsive Adjustments */
+
+    .contact-icons a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .contact-icons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .contact-icons a:hover::after {
+      transform: translateX(100%);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .profile-pic {
+        margin-top: 1rem;
+      }
+      
+      .info-section {
+        width: 100%;
+      }
+    }
+
     @media (max-width: 768px) {
       header {
+        padding: 1rem;
+      }
+      
+      .header-container {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
+        gap: 1rem;
       }
-      .main-content {
-        flex-direction: column;
-        margin: 2rem;
+      
+      nav ul {
+        gap: 0.8rem;
       }
+      
+      .main-name {
+        font-size: 2rem;
+      }
+      
+      .about-heading {
+        font-size: 1.3rem;
+      }
+      
+      .about-text {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-pic img {
+        width: 220px;
+        height: 220px;
+      }
+      
+      .profile-pic::before {
+        width: 240px;
+        height: 240px;
+      }
+      
+      nav ul {
+        justify-content: center;
+      }
+      
       .interests-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
       }
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <!-- Header Section with Navigation -->
+  <div class="page-wrapper">
+    <!-- Header Section -->
     <header>
-      <div class="left-header">
-        <div class="name">MD Talha</div>
-        <div class="subtitle">B.Sc. (Honours), M.Sc. (Thesis) (Appeared)</div>
+      <div class="header-container">
+        <div class="left-header">
+          <div class="name">MD Talha</div>
+          <div class="subtitle">B.Sc. (Honours), M.Sc. (Thesis) (Appeared)</div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="courses.html">Courses/Workshop</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="work.html">Work Experiences</a></li>
+            <li><a href="research.html">Research Works</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="education.html">Education</a></li>
-          <li><a href="courses.html">Courses/Workshop</a></li>
-          <li><a href="skills.html">Skills</a></li>
-          <li><a href="work.html">Work Experiences</a></li>
-          <li><a href="research.html">Research Works</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-        </ul>
-      </nav>
     </header>
 
-    <!-- Main Content (Aligned Left) -->
-    <div class="main-content">
-      <!-- Profile Image -->
-      <div class="profile-pic">
-        <!-- Replace with your actual image path -->
-        <img src="ImageMe.jpg">
+    <div class="content-container">
+      <!-- Hero Section -->
+      <div class="hero">
+        <!-- Profile Image (original) -->
+        <div class="profile-pic">
+          <img src="ImageMe.jpg" alt="MD Talha">
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+          <div class="main-name">MD Talha</div>
+          <div class="about-heading">A Bit About Me</div>
+          <div class="about-text">
+            Hello! My name is MD Talha. I am currently pursuing my master's degree at the <a href="https://jnu.ac.bd/department/portal/geography_environment" target="_blank">Department of Geography and Environment, Jagannath University</a>, where my final exams are ongoing. Throughout my academic journey, I have developed a strong passion for research, which has led me to actively engage in multiple research projects. My first article was published in September 2024, and since then, I have successfully published four journal articles in Q1 and Q2 international journals, along with a book chapter in a reputed book series.<br><br>
+            I am particularly interested in exploring environmental and urban issues through research, leveraging my expertise in GIS, disaster management, and urban climate studies. My dedication to academic excellence and research has not only strengthened my analytical and problem-solving skills but also deepened my understanding of real-world challenges.<br><br>
+            Currently, I am seeking an academic role that aligns with my research interests and allows me to contribute meaningfully to knowledge generation. I am confident that my research expertise, commitment, and innovative approach can add significant value to any institution I become a part of. My goal is to establish a strong academic and research presence, working collaboratively to drive impactful studies and solutions.
+          </div>
+          <!-- Research Link Button -->
+          <div class="research-link">
+            <a href="research.html">
+              <i class="fas fa-book-open"></i> Explore my Research Works
+            </a>
+          </div>
+        </div>
       </div>
 
-      <!-- Info Section with About Me -->
-      <div class="info-section">
-        <div class="main-name">MD Talha</div>
-        <div class="about-heading">A Bit About Me</div>
-        <div class="about-text">
-          Hello! My name is MD Talha. I am currently pursuing my master's degree at the <a href="https://jnu.ac.bd/department/portal/geography_environment" target="_blank" style="color:#005f73; text-decoration:underline;">Department of Geography and Environment, Jagannath University</a>, where my final exams are ongoing. Throughout my academic journey, I have developed a strong passion for research, which has led me to actively engage in multiple research projects. My first article was published in September 2024, and since then, I have successfully published four journal articles in Q1 and Q2 international journals, along with a book chapter in a reputed book series.<br><br>
-          I am particularly interested in exploring environmental and urban issues through research, leveraging my expertise in GIS, disaster management, and urban climate studies. My dedication to academic excellence and research has not only strengthened my analytical and problem-solving skills but also deepened my understanding of real-world challenges.<br><br>
-          Currently, I am seeking an academic role that aligns with my research interests and allows me to contribute meaningfully to knowledge generation. I am confident that my research expertise, commitment, and innovative approach can add significant value to any institution I become a part of. My goal is to establish a strong academic and research presence, working collaboratively to drive impactful studies and solutions.
-        </div>
-        <!-- Link to Research Page -->
-        <div class="research-link">
-          <a href="research.html">Explore my Research Works</a>
+      <!-- Research Interests Section -->
+      <div class="research-interests">
+        <h2 class="section-title">Research Interests</h2>
+        <div class="interests-container">
+          <div class="interests-grid">
+            <div class="interest-item">
+              <img src="gis_.gif" alt="GIS">
+              <span>GIS</span>
+            </div>
+            <div class="interest-item">
+              <img src="setlight.gif" alt="Remote Sensing">
+              <span>Remote Sensing</span>
+            </div>
+            <div class="interest-item">
+              <img src="EIA.gif" alt="Environmental Impact Assessment">
+              <span>Environmental Impact Assessment</span>
+            </div>
+            <div class="interest-item">
+              <img src="urbanclimate.gif" alt="Urban Climate">
+              <span>Urban Climate</span>
+            </div>
+            <div class="interest-item">
+              <img src="landsurfacetemperature.gif" alt="Land Surface Temperature">
+              <span>Land Surface Temperature</span>
+            </div>
+            <div class="interest-item">
+              <img src="dm.gif" alt="Disaster Management">
+              <span>Disaster Management</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Full Width Research Interests Section (Two Rows) -->
-    <div class="research-interests">
-      <h2>Research Interests</h2>
-      <div class="interests-grid">
-        <div class="interest-item">
-          <img src="gis_.gif">
-          <span>GIS</span>
-        </div>
-        <div class="interest-item">
-          <img src="setlight.gif">
-          <span>Remote Sensing</span>
-        </div>
-        <div class="interest-item">
-          <img src="EIA.gif">
-          <span>Environmental Impact Assesment</span>
-        </div>
-        <div class="interest-item">
-          <img src="urbanclimate.gif">
-          <span>Urban Climate</span>
-        </div>
-        <div class="interest-item">
-          <img src="landsurfacetemperature.gif">
-          <span>Land Surface Temperature</span>
-        </div>
-        <div class="interest-item">
-          <img src="dm.gif">
-          <span>Disaster Management</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
-      <div class="contact-icons">
-        <a href="tel:+8801627144804" title="Phone">
-          <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Phone" />
-        </a>
-        <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
-          <img src="image.png" alt="Email" />
-        </a>
-        <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
-          <img src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png" alt="LinkedIn" />
-        </a>
-        <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
-        </a>
-        <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
-          <img src="gscholar.png" alt="Google Scholar" />
-        </a>
-        <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
-          <img src="https://cdn-icons-png.flaticon.com/512/124/124034.png" alt="WhatsApp" />
-        </a>
+      <div class="footer-content">
+        <div class="contact-icons">
+          <a href="tel:+8801627144804" title="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+          <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+          <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+        <p class="copyright">&copy; 2025 MD Talha. All rights reserved.</p>
       </div>
-      <p>&copy; 2025 MD Talha. All rights reserved.</p>
     </footer>
   </div>
-
 </body>
 </html>
