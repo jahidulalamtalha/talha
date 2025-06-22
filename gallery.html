@@ -4,267 +4,680 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MD Talha - Gallery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Basic Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+    /* Modern CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    :root {
+      --primary: #005f73;
+      --secondary: #0a9396;
+      --accent: #94d2bd;
+      --light: #e9d8a6;
+      --dark: #001219;
+      --text: #333333;
+      --light-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background: 
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 248, 250, 0.9)), 
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') 
+        no-repeat center center fixed;
       background-size: cover;
-      color: #333;
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
     }
-    /* Header & Footer (full-width, matching homepage style) */
-    header, footer {
-      width: 100%;
-      background: #005f73;
-      padding: 1rem 2rem;
-      color: #fff;
+
+    /* Page Wrapper */
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
+    /* Header Styles */
     header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 1rem 2rem;
+      border-bottom: 3px solid var(--accent);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
     }
+
     .left-header {
       display: flex;
       flex-direction: column;
     }
-    .left-header .name { font-size: 1.8rem; font-weight: bold; }
-    .left-header .subtitle { font-size: 1rem; margin-top: 4px; }
+
+    .left-header .name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .left-header .subtitle {
+      font-size: 1rem;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
     }
+
     nav ul li a {
       text-decoration: none;
-      color: #fff;
-      font-weight: bold;
-    }
-    nav ul li a:hover { color: #a0d8d3; }
-    footer { text-align: center; margin-top: auto; }
-
-    /* Main Container Box */
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    /* Section Heading */
-    .section { margin-bottom: 2rem; }
-    .section h2 {
-      border-bottom: 2px solid #caf0f8;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      color: #005f73;
-    }
-    /* Gallery Item Card Layout */
-    .gallery-item {
-      margin-bottom: 2rem;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #f9f9f9;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    }
-    .gallery-item h3 {
-      color: #005f73;
-      margin-bottom: 0.5rem;
-    }
-    .gallery-item p {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
-    }
-    /* Image Gallery: Flexible size with captions */
-    .image-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-    .image-gallery figure {
-      flex: 1 1 300px;
-      margin: 0;
-    }
-    .image-gallery img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
+      color: white;
+      font-weight: 500;
+      padding: 8px 12px;
       border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    .image-gallery figcaption {
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 0.25rem;
+
+    nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--light);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Container */
+    .content-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1rem;
+    }
+
+    /* Gallery Container */
+    .gallery-container {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Gallery Item Card */
+    .gallery-item {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary);
+      margin-bottom: 2.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-item h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .gallery-item h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    .gallery-item p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    /* Slideshow Container */
+    .slideshow-container {
+      position: relative;
+      height: 400px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 1.5rem 0;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .slides {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .slide-caption {
+      position: relative;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px 20px;
+      font-size: 1.1rem;
+      z-index: 2;
       text-align: center;
     }
-    /* PDF Link styling */
+
+    /* Slideshow Navigation */
+    .slideshow-nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-dot.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
+    /* PDF Link */
     .pdf-link {
-      margin-top: 0.5rem;
+      margin-top: 1rem;
+      text-align: center;
     }
+
     .pdf-link a {
-      color: #005f73;
-      text-decoration: underline;
-      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 20px;
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      transition: all 0.3s ease;
     }
+
+    .pdf-link a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 95, 115, 0.3);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      padding: 2rem 1rem;
+      color: white;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-icons a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .contact-icons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .contact-icons a:hover::after {
+      transform: translateX(100%);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .slideshow-container {
+        height: 350px;
+      }
+    }
+
     @media (max-width: 768px) {
-      .container { margin: 1rem; padding: 1rem; }
-      .image-gallery {
+      header {
+        padding: 1rem;
+      }
+      
+      .header-container {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        gap: 0.8rem;
+      }
+      
+      .slideshow-container {
+        height: 300px;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .gallery-item h3 {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .slideshow-container {
+        height: 250px;
+      }
+      
+      .gallery-item {
+        padding: 1.5rem;
+      }
+      
+      .slide-caption {
+        font-size: 0.95rem;
+        padding: 10px 15px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header Section -->
-  <header>
-    <div class="left-header">
-      <div class="name">MD Talha</div>
-      <div class="subtitle">Gallerie</div>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="courses.html">Courses/Workshop</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="work.html">Work Experiences</a></li>
-        <li><a href="research.html">Research Works</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <!-- Main Content Container -->
-  <div class="container">
-    <!-- Gallery Section: Undergraduate Fieldworks & Coursework -->
-    <section class="section" id="gallery">
-      <h2>Undergraduate Works Gallery</h2>
-      
-      <!-- Work 1: First Year Fieldwork -->
-      <div class="gallery-item">
-        <h3>First Year Fieldwork: Socio-demographic and Physiographic Study of Lalakhal and Jaflong</h3>
-        <p>This field study focused on understanding the socio-demographic characteristics and physiographic features of Lalakhal and Jaflong in Sylhet District. Data were collected through observations and surveys, highlighting the local culture and physical landscape.</p>
-        <div class="image-gallery">
-          <figure>
-            <img src="FGD.jpg" alt="Doing FGD with Local People of Jaintapur Upazila, Sylhet">
-            <figcaption>FGD with Local People</figcaption>
-          </figure>
-          <figure>
-            <img src="Household Survey.jpg" alt="Conducting Household Survey">
-            <figcaption>Household Survey</figcaption>
-          </figure>
+  <div class="page-wrapper">
+    <!-- Header Section -->
+    <header>
+      <div class="header-container">
+        <div class="left-header">
+          <div class="name">MD Talha</div>
+          <div class="subtitle">Gallery</div>
         </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="courses.html">Courses/Workshop</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="work.html">Work Experiences</a></li>
+            <li><a href="research.html">Research Works</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+          </ul>
+        </nav>
       </div>
-      
-      <!-- Work 2: Second Year Fieldwork -->
-      <div class="gallery-item">
-        <h3>Second Year Fieldwork: Cyclone Bulbul Damage in Khulna Division</h3>
-        <p>This fieldwork involved both qualitative and quantitative data collection to assess the impact of Cyclone Bulbul in the Khulna division. The study documented the extent of damage, recovery efforts, and the socio-economic challenges faced by local communities.</p>
-        <div class="image-gallery">
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+1" alt="Second Year Image 1">
-            <figcaption>Damage Assessment</figcaption>
-          </figure>
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+2" alt="Second Year Image 2">
-            <figcaption>Recovery Efforts</figcaption>
-          </figure>
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Second+Year+Image+3" alt="Second Year Image 3">
-            <figcaption>Community Interviews</figcaption>
-          </figure>
-        </div>
-        <div class="pdf-link">
-          <a href="MDTalha(B-180602073).pdf" target="_blank">View Field Report (PDF)</a>
-        </div>
-      </div>
-      
-      <!-- Work 3: Third Year Fieldwork -->
-      <div class="gallery-item">
-        <h3>Third Year Fieldwork: Geographical and Environmental Analysis of Rejulakhal, Cox's Bazar</h3>
-        <p>This project examined the geographical and environmental conditions of Rejulakhal in Cox's Bazar, focusing on soil and water analysis. The fieldwork provided insights into natural resource distribution and local environmental challenges.</p>
-        <div class="image-gallery">
-          <figure>
-            <img src="Sediment Collection Rejukhal.jpg" alt="Sediment Collection for Environmental Survey">
-            <figcaption>Sediment Collection</figcaption>
-          </figure>
-          <figure>
-            <img src="Collecting Water Sample.jpg" alt="Third Year Fieldwork Image 2">
-            <figcaption>Water Sample Collection</figcaption>
-          </figure>
-        </div>
-      </div>
-      
-      <!-- Work 4: Fourth Year Fieldwork -->
-      <div class="gallery-item">
-        <h3>Fourth Year Fieldwork: Environmental Analysis and Land Use Survey at Barapukuria Coal Mine Area</h3>
-        <p>This extensive fieldwork involved a detailed environmental analysis and land use survey in the Barapukuria Coal Mine Area, Parbatipur, Dinajpur. The study aimed to assess the environmental impact of mining activities and propose sustainable land management practices.</p>
-        <div class="image-gallery">
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+1" alt="Fourth Year Fieldwork Image 1">
-            <figcaption>Land Use Mapping</figcaption>
-          </figure>
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+2" alt="Fourth Year Fieldwork Image 2">
-            <figcaption>Mine Site Analysis</figcaption>
-          </figure>
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Fourth+Year+Image+3" alt="Fourth Year Fieldwork Image 3">
-            <figcaption>Environmental Sampling</figcaption>
-          </figure>
-        </div>
-      </div>
-      
-      <!-- Work 5: Coursework -->
-      <div class="gallery-item">
-        <h3>Coursework: Impact of Industrial Effluent on River Pollution - Turag River Case Study</h3>
-        <p>This research project analyzed the impact of industrial effluent on the water quality of the Turag River. Through extensive water sampling and laboratory analysis, the study highlighted the adverse effects of industrial discharge and emphasized the need for stricter environmental regulations.</p>
-        <div class="image-gallery">
-          <figure>
-            <img src="Collecting Sample.jpg" alt="Coursework Image 1">
-            <figcaption>Sample Collecting</figcaption>
-          </figure>
-          <figure>
-            <img src="Lab Analysis.jpg" alt="Coursework Image 2">
-            <figcaption>Lab Analysis</figcaption>
-          </figure>
-        </div>
-        <div class="pdf-link">
-          <a href="Report (Talha).pdf" target="_blank">View Coursework Report (PDF)</a>
-        </div>
-      </div>
-      
-      <!-- Extra-Curricular Work -->
-      <div class="gallery-item">
-        <h3>Extra-Curricular: Inter-Departmental Football Tournament Champion</h3>
-        <p>In addition to academic pursuits, I actively participated in inter-departmental football tournaments and led my team to become champions. This experience honed my teamwork, leadership, and time management skills.</p>
-        <div class="image-gallery">
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Football+Image+1" alt="Football Tournament Image 1">
-            <figcaption>Team Celebration</figcaption>
-          </figure>
-          <figure>
-            <img src="https://via.placeholder.com/300x200?text=Football+Image+2" alt="Football Tournament Image 2">
-            <figcaption>Match Action</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-  </div>
-  
-  <!-- Footer Section -->
-  <footer>
-    <p>&copy; 2025 MD Talha. All rights reserved.</p>
-  </footer>
+    </header>
 
+    <!-- Gallery Content -->
+    <div class="content-container">
+      <div class="gallery-container">
+        <h2 class="section-title">Undergraduate Works Gallery</h2>
+        
+        <!-- Work 1: First Year Fieldwork -->
+        <div class="gallery-item">
+          <h3>First Year Fieldwork: Socio-demographic and Physiographic Study of Lalakhal and Jaflong</h3>
+          <p>This field study focused on understanding the socio-demographic characteristics and physiographic features of Lalakhal and Jaflong in Sylhet District. Data were collected through observations and surveys, highlighting the local culture and physical landscape.</p>
+          
+          <div class="slideshow-container">
+            <div class="slides">
+              <div class="slide active">
+                <img src="FGD.jpg" alt="Doing FGD with Local People of Jaintapur Upazila, Sylhet">
+                <div class="slide-caption">FGD with Local People</div>
+              </div>
+              <div class="slide">
+                <img src="Household Survey.jpg" alt="Conducting Household Survey">
+                <div class="slide-caption">Household Survey</div>
+              </div>
+            </div>
+            <div class="slideshow-nav">
+              <div class="nav-dot active"></div>
+              <div class="nav-dot"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Work 2: Second Year Fieldwork -->
+        <div class="gallery-item">
+          <h3>Second Year Fieldwork: Cyclone Bulbul Damage in Khulna Division</h3>
+          <p>This fieldwork involved both qualitative and quantitative data collection to assess the impact of Cyclone Bulbul in the Khulna division. The study documented the extent of damage, recovery efforts, and the socio-economic challenges faced by local communities.</p>
+          
+          <div class="slideshow-container">
+            <div class="slides">
+              <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1561489396-888724a1543d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Damage Assessment">
+                <div class="slide-caption">Damage Assessment</div>
+              </div>
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Recovery Efforts">
+                <div class="slide-caption">Recovery Efforts</div>
+              </div>
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Community Interviews">
+                <div class="slide-caption">Community Interviews</div>
+              </div>
+            </div>
+            <div class="slideshow-nav">
+              <div class="nav-dot active"></div>
+              <div class="nav-dot"></div>
+              <div class="nav-dot"></div>
+            </div>
+          </div>
+          
+          <div class="pdf-link">
+            <a href="MDTalha(B-180602073).pdf" target="_blank">
+              <i class="fas fa-file-pdf"></i> View Field Report (PDF)
+            </a>
+          </div>
+        </div>
+        
+        <!-- Work 3: Third Year Fieldwork -->
+        <div class="gallery-item">
+          <h3>Third Year Fieldwork: Geographical and Environmental Analysis of Rejulakhal, Cox's Bazar</h3>
+          <p>This project examined the geographical and environmental conditions of Rejulakhal in Cox's Bazar, focusing on soil and water analysis. The fieldwork provided insights into natural resource distribution and local environmental challenges.</p>
+          
+          <div class="slideshow-container">
+            <div class="slides">
+              <div class="slide active">
+                <img src="Sediment Collection Rejukhal.jpg" alt="Sediment Collection for Environmental Survey">
+                <div class="slide-caption">Sediment Collection</div>
+              </div>
+              <div class="slide">
+                <img src="Collecting Water Sample.jpg" alt="Water Sample Collection">
+                <div class="slide-caption">Water Sample Collection</div>
+              </div>
+            </div>
+            <div class="slideshow-nav">
+              <div class="nav-dot active"></div>
+              <div class="nav-dot"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Work 4: Fourth Year Fieldwork -->
+        <div class="gallery-item">
+          <h3>Fourth Year Fieldwork: Environmental Analysis and Land Use Survey at Barapukuria Coal Mine Area</h3>
+          <p>This extensive fieldwork involved a detailed environmental analysis and land use survey in the Barapukuria Coal Mine Area, Parbatipur, Dinajpur. The study aimed to assess the environmental impact of mining activities and propose sustainable land management practices.</p>
+          
+          <div class="slideshow-container">
+            <div class="slides">
+              <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Land Use Mapping">
+                <div class="slide-caption">Land Use Mapping</div>
+              </div>
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1517639493569-5666a7b2f494?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Mine Site Analysis">
+                <div class="slide-caption">Mine Site Analysis</div>
+              </div>
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1574170609510-6a8a28d8b530?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Environmental Sampling">
+                <div class="slide-caption">Environmental Sampling</div>
+              </div>
+            </div>
+            <div class="slideshow-nav">
+              <div class="nav-dot active"></div>
+              <div class="nav-dot"></div>
+              <div class="nav-dot"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Work 5: Coursework -->
+        <div class="gallery-item">
+          <h3>Coursework: Impact of Industrial Effluent on River Pollution - Turag River Case Study</h3>
+          <p>This research project analyzed the impact of industrial effluent on the water quality of the Turag River. Through extensive water sampling and laboratory analysis, the study highlighted the adverse effects of industrial discharge and emphasized the need for stricter environmental regulations.</p>
+          
+          <div class="slideshow-container">
+            <div class="slides">
+              <div class="slide active">
+                <img src="Collecting Sample.jpg" alt="Sample Collecting">
+                <div class="slide-caption">Sample Collecting</div>
+              </div>
+              <div class="slide">
+                <img src="Lab Analysis.jpg" alt="Lab Analysis">
+                <div class="slide-caption">Lab Analysis</div>
+              </div>
+            </div>
+            <div class="slideshow-nav">
+              <div class="nav-dot active"></div>
+              <div class="nav-dot"></div>
+            </div>
+          </div>
+          
+          <div class="pdf-link">
+            <a href="Report (Talha).pdf" target="_blank">
+              <i class="fas fa-file-pdf"></i> View Coursework Report (PDF)
+            </a>
+          </div>
+        </div>
+        
+        <!-- Extra-Curricular Work -->
+        <div class="gallery-item">
+          <h3>Extra-Curricular: Inter-Departmental Football Tournament Champion</h3>
+          <p>In addition to academic pursuits, I actively participated in inter-departmental football tournaments and led my team to become champions. This experience honed my teamwork, leadership, and time management skills.</p>
+          
+          <div class="slideshow-container">
+            <div class="slides">
+              <div class="slide active">
+                <img src="https://images.unsplash.com/photo-1541252260730-0412e8e2108e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Football Tournament Image 1">
+                <div class="slide-caption">Team Celebration</div>
+              </div>
+              <div class="slide">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=80" alt="Football Tournament Image 2">
+                <div class="slide-caption">Match Action</div>
+              </div>
+            </div>
+            <div class="slideshow-nav">
+              <div class="nav-dot active"></div>
+              <div class="nav-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-content">
+        <div class="contact-icons">
+          <a href="tel:+8801627144804" title="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+          <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+          <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+        <p class="copyright">&copy; 2025 MD Talha. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Automatic Slideshow Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all slideshows
+      const slideshows = document.querySelectorAll('.slideshow-container');
+      
+      slideshows.forEach(slideshow => {
+        const slides = slideshow.querySelectorAll('.slide');
+        const dots = slideshow.querySelectorAll('.nav-dot');
+        let currentSlide = 0;
+        
+        // Function to show a specific slide
+        function showSlide(index) {
+          // Hide all slides
+          slides.forEach(slide => slide.classList.remove('active'));
+          dots.forEach(dot => dot.classList.remove('active'));
+          
+          // Show the selected slide
+          slides[index].classList.add('active');
+          dots[index].classList.add('active');
+          currentSlide = index;
+        }
+        
+        // Set click events for navigation dots
+        dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => showSlide(index));
+        });
+        
+        // Auto-advance slides
+        setInterval(() => {
+          currentSlide = (currentSlide + 1) % slides.length;
+          showSlide(currentSlide);
+        }, 5000); // Change slide every 5 seconds
+      });
+    });
+  </script>
 </body>
 </html>
-
-
