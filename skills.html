@@ -4,261 +4,675 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MD Talha - Skills</title>
-  <!-- Load Font Awesome icons from CDN (if needed) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
-        integrity="sha512-Fo3rlrZj/k7ujTnHg4C+6kGrb+X3V0Fz3X2iDwRW3sVhXG86Ew81jtj5K9enJf+XCIyR6B9X7sd0fY9kXD9U2w==" 
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Basic Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+    /* Modern CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    :root {
+      --primary: #005f73;
+      --secondary: #0a9396;
+      --accent: #94d2bd;
+      --light: #e9d8a6;
+      --dark: #001219;
+      --text: #333333;
+      --light-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background: 
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 248, 250, 0.9)), 
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') 
+        no-repeat center center fixed;
       background-size: cover;
-      color: #333;
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
     }
-    /* Header & Footer (full-width, matching homepage style) */
-    header, footer {
-      width: 100%;
-      background: #005f73;
-      padding: 1rem 2rem;
-      color: #fff;
+
+    /* Page Wrapper */
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
+    /* Header Styles */
     header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 1rem 2rem;
+      border-bottom: 3px solid var(--accent);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
     }
+
     .left-header {
       display: flex;
       flex-direction: column;
     }
+
     .left-header .name {
       font-size: 1.8rem;
-      font-weight: bold;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
+
     .left-header .subtitle {
       font-size: 1rem;
       margin-top: 4px;
+      opacity: 0.9;
     }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
     }
+
     nav ul li a {
       text-decoration: none;
-      color: #fff;
-      font-weight: bold;
+      color: white;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    nav ul li a:hover { color: #a0d8d3; }
-    footer { text-align: center; margin-top: auto; }
-    /* Main Container Box */
-    .container {
-      max-width: 1200px;
+
+    nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--light);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Container */
+    .content-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1400px;
       margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 0 2rem;
+      width: 100%;
     }
+
+    /* Skills Container */
+    .skills-container {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      width: 100%;
+    }
+
     /* Section Headings */
-    .section { margin-bottom: 2rem; }
-    .section h2 {
-      border-bottom: 2px solid #caf0f8;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      color: #005f73;
+    .section-title {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
-    /* Skill Item Layout */
-    .skill-item {
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Skill Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+    }
+
+    /* Skill Card */
+    .skill-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--primary);
+      transition: all 0.3s ease;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(10, 147, 150, 0.03), rgba(0, 95, 115, 0.05));
+      z-index: 1;
+    }
+
+    .skill-icon {
+      flex: 0 0 70px;
+      height: 70px;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #f9f9f9;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-      margin-bottom: 1rem;
+      justify-content: center;
+      background: rgba(10, 147, 150, 0.08);
+      border-radius: 12px;
+      position: relative;
+      z-index: 2;
     }
-    .skill-item:hover { transform: translateY(-5px); }
-    /* Fixed size for icon container for alignment */
-    .skill-icon {
-      flex: 0 0 64px;
-      height: 64px;
+
+    .skill-icon img {
+      width: 50px;
+      height: 50px;
       object-fit: contain;
+      transition: transform 0.3s ease;
     }
+
+    .skill-card:hover .skill-icon img {
+      transform: scale(1.1);
+    }
+
     .skill-details {
       flex: 1;
+      position: relative;
+      z-index: 2;
     }
+
     .skill-details h3 {
-      color: #005f73;
-      margin-bottom: 0.5rem;
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
     }
+
     .skill-details p {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text);
     }
+
+    /* Progress Bar */
+    .progress-container {
+      margin-top: 1rem;
+      width: 100%;
+      background: rgba(0, 95, 115, 0.1);
+      border-radius: 10px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      position: relative;
+      transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      padding: 2rem 1rem;
+      color: white;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-icons a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .contact-icons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .contact-icons a:hover::after {
+      transform: translateX(100%);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+      
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+
     @media (max-width: 768px) {
-      .container { margin: 1rem; padding: 1rem; }
-      .skill-item { flex-direction: column; align-items: flex-start; }
-      .skill-icon { width: 48px; height: 48px; }
+      header {
+        padding: 1rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .skill-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .skill-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .skill-icon {
+        margin-bottom: 1rem;
+      }
+      
+      .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="left-header">
-      <div class="name">MD Talha</div>
-      <div class="subtitle">Skills</div>
+  <div class="page-wrapper">
+    <!-- Header Section -->
+    <header>
+      <div class="header-container">
+        <div class="left-header">
+          <div class="name">MD Talha</div>
+          <div class="subtitle">Skills</div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="courses.html">Courses/Workshop</a></li>
+            <li><a href="skills.html" class="active">Skills</a></li>
+            <li><a href="work.html">Work Experiences</a></li>
+            <li><a href="research.html">Research Works</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="content-container">
+      <div class="skills-container">
+        <!-- Professional Skills Section -->
+        <section>
+          <h2 class="section-title">Professional Skills</h2>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="office.gif" alt="Microsoft Office">
+              </div>
+              <div class="skill-details">
+                <h3>Microsoft Office</h3>
+                <p>Advanced proficiency in creating professional documents, spreadsheets, and presentations. Expert in data analysis, report generation, and collaborative project management.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 95%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="arcgis.gif" alt="ArcGIS">
+              </div>
+              <div class="skill-details">
+                <h3>ArcGIS</h3>
+                <p>Advanced skills in spatial analysis, mapping, and geoprocessing. Proficient in designing and implementing complex geospatial projects for environmental and urban planning.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="erdas.jpg" alt="Erdas Imagine">
+              </div>
+              <div class="skill-details">
+                <h3>Erdas Imagine</h3>
+                <p>Expert in remote sensing and image processing. Proficient in land cover classification, change detection, and extracting actionable insights from satellite imagery.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 85%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="earth.gif" alt="Google Earth Pro">
+              </div>
+              <div class="skill-details">
+                <h3>Google Earth Pro</h3>
+                <p>Highly skilled in leveraging high-resolution imagery and geospatial data for detailed visualization and spatial analysis, aiding in effective decision-making.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="spss.jpg" alt="SPSS">
+              </div>
+              <div class="skill-details">
+                <h3>SPSS</h3>
+                <p>Intermediate proficiency in statistical analysis and data modeling. Experienced in running advanced tests and interpreting complex datasets to drive informed decisions.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 80%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="gee.gif" alt="Google Earth Engine">
+              </div>
+              <div class="skill-details">
+                <h3>Google Earth Engine</h3>
+                <p>Skilled in cloud-based geospatial processing to analyze large-scale remote sensing datasets, supporting robust environmental monitoring and analysis.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 82%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
+              </div>
+              <div class="skill-details">
+                <h3>Basic Python</h3>
+                <p>Foundational programming skills in Python for data manipulation, scripting, and analysis. Continuously expanding capabilities in scientific computing and machine learning.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 75%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="ml.gif" alt="Machine Learning">
+              </div>
+              <div class="skill-details">
+                <h3>Machine Learning</h3>
+                <p>Basic understanding of machine learning techniques including data preprocessing, model training, and evaluation. Actively learning to develop predictive models for environmental applications.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 70%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Soft Skills Section -->
+        <section>
+          <h2 class="section-title">Soft Skills</h2>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="communication.gif" alt="Communication">
+              </div>
+              <div class="skill-details">
+                <h3>Communication</h3>
+                <p>Exceptional verbal and written communication skills that facilitate effective collaboration and clear presentation of complex ideas to diverse audiences.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 92%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="prbslv.gif" alt="Problem Solving">
+              </div>
+              <div class="skill-details">
+                <h3>Problem Solving</h3>
+                <p>Strong analytical skills with the ability to quickly identify challenges and devise creative, practical solutions to overcome them.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="wup.gif" alt="Working Under Pressure">
+              </div>
+              <div class="skill-details">
+                <h3>Working Under Pressure</h3>
+                <p>Adept at maintaining high performance and quality output even in stressful situations by effectively managing time and priorities.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="descision.gif" alt="Decision Making">
+              </div>
+              <div class="skill-details">
+                <h3>Decision Making</h3>
+                <p>Capable of evaluating multiple options swiftly and making informed decisions using logical analysis and critical thinking.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 85%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="team.gif" alt="Team Work">
+              </div>
+              <div class="skill-details">
+                <h3>Team Work</h3>
+                <p>Highly collaborative with a strong commitment to working effectively in diverse teams to achieve shared goals and foster a positive work environment.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 93%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-card">
+              <div class="skill-icon">
+                <img src="time.gif" alt="Time Management">
+              </div>
+              <div class="skill-details">
+                <h3>Time Management</h3>
+                <p>Excellent organizational skills with the ability to prioritize tasks, manage multiple projects simultaneously, and consistently meet deadlines.</p>
+                <div class="progress-container">
+                  <div class="progress-bar" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="courses.html">Courses/Workshop</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="work.html">Work Experiences</a></li>
-        <li><a href="research.html">Research Works</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <!-- Main Content Container -->
-  <div class="container">
-    <!-- Professional Skills Section -->
-    <section class="section" id="professional-skills">
-      <h2>Professional Skills</h2>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="office.gif" alt="Microsoft Office">
-        <div class="skill-details">
-          <h3>Microsoft Office (Word, Excel, PowerPoint)</h3>
-          <p>Advanced proficiency in creating professional documents, spreadsheets, and presentations. Expert in data analysis, report generation, and collaborative project management.</p>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-content">
+        <div class="contact-icons">
+          <a href="tel:+8801627144804" title="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+          <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+          <a href="https://www.researchgate.net/profile/Md-Talha-13?ev=hdr_xprf&_tp=eyJjb250ZXh0Ijp7InBhZ2UiOiJwcm9maWxlIiwicHJldmlvdXNQYWdlIjpudWxsfX0" target="_blank" title="ResearchGate">
+            <i class="fab fa-researchgate"></i>
+          </a>
+          <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
         </div>
+        <p class="copyright">&copy; 2025 MD Talha. All rights reserved.</p>
       </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="arcgis.gif" alt="ArcGIS">
-        <div class="skill-details">
-          <h3>ArcGIS</h3>
-          <p>Advanced skills in spatial analysis, mapping, and geoprocessing. Proficient in designing and implementing complex geospatial projects for environmental and urban planning.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="erdas.jpg">
-        <div class="skill-details">
-          <h3>Erdas Imagine</h3>
-          <p>Expert in remote sensing and image processing. Proficient in land cover classification, change detection, and extracting actionable insights from satellite imagery.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="earth.gif">
-        <div class="skill-details">
-          <h3>Google Earth Pro</h3>
-          <p>Highly skilled in leveraging high-resolution imagery and geospatial data for detailed visualization and spatial analysis, aiding in effective decision-making.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="spss.jpg">
-        <div class="skill-details">
-          <h3>SPSS</h3>
-          <p>Intermediate proficiency in statistical analysis and data modeling. Experienced in running advanced tests and interpreting complex datasets to drive informed decisions.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="gee.gif">
-        <div class="skill-details">
-          <h3>Google Earth Engine</h3>
-          <p>Skilled in cloud-based geospatial processing to analyze large-scale remote sensing datasets, supporting robust environmental monitoring and analysis.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
-        <div class="skill-details">
-          <h3>Basic Python</h3>
-          <p>Foundational programming skills in Python for data manipulation, scripting, and analysis. Continuously expanding capabilities in scientific computing and machine learning.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="ml.gif">
-        <div class="skill-details">
-          <h3>Machine Learning</h3>
-          <p>Basic understanding of machine learning techniques including data preprocessing, model training, and evaluation. Actively learning to develop predictive models for environmental applications.</p>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Soft Skills Section -->
-    <section class="section" id="soft-skills">
-      <h2>Soft Skills</h2>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="communication.gif">
-        <div class="skill-details">
-          <h3>Communication</h3>
-          <p>Exceptional verbal and written communication skills that facilitate effective collaboration and clear presentation of complex ideas to diverse audiences.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="prbslv.gif">
-        <div class="skill-details">
-          <h3>Problem Solving</h3>
-          <p>Strong analytical skills with the ability to quickly identify challenges and devise creative, practical solutions to overcome them.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="wup.gif">
-        <div class="skill-details">
-          <h3>Working Under Pressure</h3>
-          <p>Adept at maintaining high performance and quality output even in stressful situations by effectively managing time and priorities.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="descision.gif">
-        <div class="skill-details">
-          <h3>Decision Making</h3>
-          <p>Capable of evaluating multiple options swiftly and making informed decisions using logical analysis and critical thinking.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="team.gif">
-        <div class="skill-details">
-          <h3>Team Work</h3>
-          <p>Highly collaborative with a strong commitment to working effectively in diverse teams to achieve shared goals and foster a positive work environment.</p>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <img class="skill-icon" src="time.gif">
-        <div class="skill-details">
-          <h3>Time Management</h3>
-          <p>Excellent organizational skills with the ability to prioritize tasks, manage multiple projects simultaneously, and consistently meet deadlines.</p>
-        </div>
-      </div>
-    </section>
+    </footer>
   </div>
-  
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 MD Talha. All rights reserved.</p>
-  </footer>
+
+  <script>
+    // Animate progress bars on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const progressBars = document.querySelectorAll('.progress-bar');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const width = entry.target.style.width;
+            entry.target.style.width = '0';
+            setTimeout(() => {
+              entry.target.style.width = width;
+            }, 300);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      progressBars.forEach(bar => {
+        observer.observe(bar);
+      });
+    });
+  </script>
 </body>
 </html>
