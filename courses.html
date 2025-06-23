@@ -3,191 +3,708 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MD Talha - Activities</title>
+  <title>MD Talha - Courses & Activities</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Basic Reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; }
+    /* Modern CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    :root {
+      --primary: #005f73;
+      --secondary: #0a9396;
+      --accent: #94d2bd;
+      --light: #e9d8a6;
+      --dark: #001219;
+      --text: #333333;
+      --light-bg: rgba(255, 255, 255, 0.92);
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://via.placeholder.com/1920x1080?text=Remote+Sensing') no-repeat center center fixed;
+      background: 
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(245, 248, 250, 0.9)), 
+        url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') 
+        no-repeat center center fixed;
       background-size: cover;
-      color: #333;
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
     }
-    /* Header & Footer (full-width, matching homepage style) */
-    header, footer {
-      width: 100%;
-      background: #005f73;
-      padding: 1rem 2rem;
-      color: #fff;
+
+    /* Page Wrapper */
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
+
+    /* Header Styles */
     header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 1rem 2rem;
+      border-bottom: 3px solid var(--accent);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .header-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
     }
+
     .left-header {
       display: flex;
       flex-direction: column;
     }
+
     .left-header .name {
       font-size: 1.8rem;
-      font-weight: bold;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
+
     .left-header .subtitle {
       font-size: 1rem;
       margin-top: 4px;
+      opacity: 0.9;
     }
+
     nav ul {
       list-style: none;
       display: flex;
       gap: 1.5rem;
       flex-wrap: wrap;
     }
+
     nav ul li a {
       text-decoration: none;
-      color: #fff;
-      font-weight: bold;
+      color: white;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    nav ul li a:hover { color: #a0d8d3; }
-    footer { text-align: center; margin-top: auto; }
-    /* Main Container Box */
-    .container {
+
+    nav ul li a:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--light);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content Container */
+    .content-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1rem;
+    }
+
+    /* Courses Container */
+    .courses-container {
       max-width: 1200px;
-      margin: 2rem auto;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Section Styling */
+    .section {
+      margin-bottom: 3rem;
       padding: 2rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
     }
-    /* Section Headings */
-    .section { margin-bottom: 2rem; }
+
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      opacity: 0.2;
+    }
+
     .section h2 {
-      border-bottom: 2px solid #caf0f8;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      color: #005f73;
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 10px;
     }
-    /* Item Card Layout (used for both courses & extra-curricular) */
-    .item-card {
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    /* Course Cards */
+    .course-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .course-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #f9f9f9;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      margin-bottom: 1.5rem;
+      position: relative;
     }
-    .item-card h3 {
-      color: #005f73;
-      margin-bottom: 0.3rem;
+
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
     }
-    .item-card p {
-      font-size: 1rem;
-      line-height: 1.5;
+
+    .course-card h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .course-card h3 i {
+      color: var(--secondary);
+    }
+
+    .course-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
       margin-bottom: 0.5rem;
     }
-    .item-card .certificate {
+
+    .detail-item {
+      background: rgba(10, 147, 150, 0.1);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: 500;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.95rem;
+    }
+
+    .course-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .certificate {
       text-align: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(0, 0, 0, 0.1);
     }
-    .item-card .certificate img {
-      max-width: 300px;
+
+    .certificate img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .certificate img:hover {
+      transform: scale(1.03);
+    }
+
+    .certificate-label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    /* Activity Cards */
+    .activity-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--secondary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .activity-card h3 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .activity-card h3 i {
+      color: var(--secondary);
+    }
+
+    .activity-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .activity-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    /* Timeline Decoration */
+    .timeline-decoration {
+      position: absolute;
+      top: 0;
+      left: -1.5rem;
+      height: 100%;
+      width: 4px;
+      background: var(--accent);
+      z-index: 1;
+    }
+
+    .timeline-decoration::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: -6px;
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      border: 3px solid white;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      padding: 2rem 1rem;
+      color: white;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 1.3rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-icons a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .contact-icons a::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      border-radius: 4px;
-      margin-top: 0.5rem;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
     }
+
+    .contact-icons a:hover::after {
+      transform: translateX(100%);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .section {
+        padding: 1.5rem;
+      }
+    }
+
     @media (max-width: 768px) {
-      .container { margin: 1rem; padding: 1rem; }
+      header {
+        padding: 1rem;
+      }
+      
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        gap: 0.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .section h2 {
+        font-size: 1.5rem;
+      }
+      
+      .course-card h3,
+      .activity-card h3 {
+        font-size: 1.3rem;
+      }
+      
+      .timeline-decoration {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 1.25rem;
+      }
+      
+      .course-card,
+      .activity-card {
+        padding: 1.25rem;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+      }
+      
+      .course-card h3,
+      .activity-card h3 {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="left-header">
-      <div class="name">MD Talha</div>
-      <div class="subtitle">Courses/Workshops and Extra Curricular Activities</div>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="courses.html">Courses/Workshop</a></li>
-        <li><a href="skills.html">Skills</a></li>
-        <li><a href="work.html">Work Experiences</a></li>
-        <li><a href="research.html">Research Works</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <!-- Main Container -->
-  <div class="container">
-    <!-- Courses & Workshops Section -->
-    <section class="section" id="courses-workshops">
-      <h2>Courses & Workshops</h2>
-      
-      <div class="item-card">
-        <h3>The Crossroad of Exploring Geospatial Science: Learning by Sharing Knowledge</h3>
-        <p><strong>Organizer:</strong> GroupMappers</p>
-        <p><strong>Duration:</strong> 1 day | <strong>Year:</strong> 2022</p>
-        <p>This workshop offered an intensive one-day program focused on the fundamentals of geospatial science. Participants engaged in interactive sessions and collaborative discussions to explore modern techniques in geospatial analysis.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Course+Certificate" alt="Course Certificate">
+  <div class="page-wrapper">
+    <!-- Header Section -->
+    <header>
+      <div class="header-container">
+        <div class="left-header">
+          <div class="name">MD Talha</div>
+          <div class="subtitle">Courses/Workshops & Activities</div>
         </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="courses.html" class="active">Courses/Workshop</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="work.html">Work Experiences</a></li>
+            <li><a href="research.html">Research Works</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </nav>
       </div>
-      
-      <div class="item-card">
-        <h3>Mauza Georeferencing and Digitizing using ArcGIS</h3>
-        <p><strong>Organizer:</strong> GMGI Solutions Ltd.</p>
-        <p><strong>Duration:</strong> 1 day | <strong>Year:</strong> 2022</p>
-        <p>This practical workshop focused on transforming traditional maps into digital formats through georeferencing and digitization techniques using ArcGIS. It enhanced skills in spatial data conversion and geoprocessing for accurate mapping.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Course+Certificate" alt="Course Certificate">
-        </div>
-      </div>
-      
-      <div class="item-card">
-        <h3>How to Write a Research Article and Thesis Paper</h3>
-        <p><strong>Organizer:</strong> Research Tech Hub</p>
-        <p><strong>Duration:</strong> 2 hours | <strong>Year:</strong> 2024</p>
-        <p>This short course provided essential guidelines for academic writing, covering the structure, style, and best practices for drafting research articles and thesis papers. It aimed to help participants enhance their scholarly communication skills.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Course+Certificate" alt="Course Certificate">
-        </div>
-      </div>
-    </section>
-    
-    <!-- Extra-Curricular Activities Section -->
-    <section class="section" id="extra-curricular">
-      <h2>Extra-Curricular Activities</h2>
-      
-      <div class="item-card">
-        <h3>Joint Secretary: Green Voice</h3>
-        <p><strong>Duration:</strong> 2022 - 2023</p>
-        <p>Served as Joint Secretary for Green Voice, a youth organization dedicated to environmental conservation. Responsibilities included organizing events, campaigns, and initiatives aimed at raising environmental awareness and promoting sustainability among peers.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Activity+Certificate" alt="Activity Certificate">
-        </div>
-      </div>
-      
-      <div class="item-card">
-        <h3>Football Player: Inter-Departmental Tournament</h3>
-        <p><strong>Years:</strong> 2022 &amp; 2024</p>
-        <p>Actively participated in inter-departmental football tournaments, demonstrating teamwork, discipline, and leadership. This involvement provided a balance between academic pursuits and extracurricular engagement while fostering a competitive spirit.</p>
-        <div class="certificate">
-          <img src="https://via.placeholder.com/300x200?text=Activity+Certificate" alt="Activity Certificate">
-        </div>
-      </div>
-    </section>
-  </div>
-  
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 MD Talha. All rights reserved.</p>
-  </footer>
+    </header>
 
+    <!-- Courses Content -->
+    <div class="content-container">
+      <div class="courses-container">
+        <h2 class="section-title">Learning & Development</h2>
+        
+        <!-- Courses & Workshops Section -->
+        <section class="section">
+          <h2>Courses & Workshops</h2>
+          
+          <div class="course-list">
+            <!-- 1. Data Analytics (Latest) -->
+            <div class="course-card">
+              <div class="timeline-decoration"></div>
+              <h3><i class="fas fa-chart-line"></i> Introduction to Data Analytics</h3>
+              <div class="course-details">
+                <div class="detail-item">
+                  <i class="fas fa-building"></i>
+                  <span>Bohubrihi</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-clock"></i>
+                  <span>Self-paced</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>2025</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-id-badge"></i>
+                  <span>ID: 682011c3891f394bfdba613</span>
+                </div>
+              </div>
+              <p class="course-description">
+                This comprehensive course provides foundational knowledge in data analytics, covering essential techniques and tools for extracting insights from data. Participants learn to process, analyze, and visualize data to support decision-making.
+              </p>
+              <div class="certificate">
+                <img src="https://via.placeholder.com/600x400?text=Data+Analytics+Certificate" alt="Data Analytics Certificate">
+                <span class="certificate-label">Certificate of Completion - Issued May 11, 2025</span>
+              </div>
+            </div>
+            
+            <!-- 2. Research Writing -->
+            <div class="course-card">
+              <div class="timeline-decoration"></div>
+              <h3><i class="fas fa-graduation-cap"></i> How to Write a Research Article and Thesis Paper</h3>
+              <div class="course-details">
+                <div class="detail-item">
+                  <i class="fas fa-building"></i>
+                  <span>Research Tech Hub</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-clock"></i>
+                  <span>2 hours</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>2024</span>
+                </div>
+              </div>
+              <p class="course-description">
+                This short course provided essential guidelines for academic writing, covering the structure, style, and best practices for drafting research articles and thesis papers. It aimed to help participants enhance their scholarly communication skills.
+              </p>
+              <div class="certificate">
+                <img src="https://via.placeholder.com/600x400?text=Course+Certificate" alt="Course Certificate">
+                <span class="certificate-label">Certificate of Completion</span>
+              </div>
+            </div>
+            
+            <!-- 3. Geospatial Science -->
+            <div class="course-card">
+              <div class="timeline-decoration"></div>
+              <h3><i class="fas fa-map-marked-alt"></i> The Crossroad of Exploring Geospatial Science: Learning by Sharing Knowledge</h3>
+              <div class="course-details">
+                <div class="detail-item">
+                  <i class="fas fa-building"></i>
+                  <span>GroupMappers</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-clock"></i>
+                  <span>1 day</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>2022</span>
+                </div>
+              </div>
+              <p class="course-description">
+                This workshop offered an intensive one-day program focused on the fundamentals of geospatial science. Participants engaged in interactive sessions and collaborative discussions to explore modern techniques in geospatial analysis.
+              </p>
+              <div class="certificate">
+                <img src="https://via.placeholder.com/600x400?text=Course+Certificate" alt="Course Certificate">
+                <span class="certificate-label">Certificate of Completion</span>
+              </div>
+            </div>
+            
+            <!-- 4. Mauza Georeferencing (Oldest) -->
+            <div class="course-card">
+              <div class="timeline-decoration"></div>
+              <h3><i class="fas fa-globe-asia"></i> Mauza Georeferencing and Digitizing using ArcGIS</h3>
+              <div class="course-details">
+                <div class="detail-item">
+                  <i class="fas fa-building"></i>
+                  <span>GMGI Solutions Ltd.</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-clock"></i>
+                  <span>1 day</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>2022</span>
+                </div>
+              </div>
+              <p class="course-description">
+                This practical workshop focused on transforming traditional maps into digital formats through georeferencing and digitization techniques using ArcGIS. It enhanced skills in spatial data conversion and geoprocessing for accurate mapping.
+              </p>
+              <div class="certificate">
+                <img src="https://via.placeholder.com/600x400?text=Course+Certificate" alt="Course Certificate">
+                <span class="certificate-label">Certificate of Completion</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Extra-Curricular Activities Section -->
+        <section class="section">
+          <h2>Extra-Curricular Activities</h2>
+          
+          <div class="course-list">
+            <!-- Activity 1 -->
+            <div class="activity-card">
+              <h3><i class="fas fa-leaf"></i> Joint Secretary: Green Voice</h3>
+              <div class="activity-details">
+                <div class="detail-item">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>2022 - 2023</span>
+                </div>
+              </div>
+              <p class="activity-description">
+                Served as Joint Secretary for Green Voice, a youth organization dedicated to environmental conservation. Responsibilities included organizing events, campaigns, and initiatives aimed at raising environmental awareness and promoting sustainability among peers.
+              </p>
+              <div class="certificate">
+                <img src="https://via.placeholder.com/600x400?text=Activity+Certificate" alt="Activity Certificate">
+                <span class="certificate-label">Leadership Certificate</span>
+              </div>
+            </div>
+            
+            <!-- Activity 2 -->
+            <div class="activity-card">
+              <h3><i class="fas fa-futbol"></i> Football Player: Inter-Departmental Tournament</h3>
+              <div class="activity-details">
+                <div class="detail-item">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>2022 & 2024</span>
+                </div>
+              </div>
+              <p class="activity-description">
+                Actively participated in inter-departmental football tournaments, demonstrating teamwork, discipline, and leadership. This involvement provided a balance between academic pursuits and extracurricular engagement while fostering a competitive spirit.
+              </p>
+              <div class="certificate">
+                <img src="https://via.placeholder.com/600x400?text=Activity+Certificate" alt="Activity Certificate">
+                <span class="certificate-label">Participation Certificate</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+      <div class="footer-content">
+        <div class="contact-icons">
+          <a href="tel:+8801627144804" title="Phone">
+            <i class="fas fa-phone"></i>
+          </a>
+          <a href="mailto:jahidulalamtalha@gmail.com" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/md-talha-15989b1ab/" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.facebook.com/jahidulalamtalha" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://scholar.google.com/citations?user=iyiKulQAAAAJ&hl=en&authuser=1" target="_blank" title="Google Scholar">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+          <a href="http://wa.me/+8801627144804" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+        <p class="copyright">&copy; 2025 MD Talha. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
