@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Pro + Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --primary: #6366f1; --income: #10b981; --expense: #f43f5e; --bg: #f8fafc; --text: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: var(--text); }
+        nav { background: white; padding: 1rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .nav-brand { font-weight: 800; color: var(--primary); }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+        .stat-card p { font-size: 1.8rem; font-weight: 800; margin: 10px 0 0; }
+        .visual-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
+        .chart-container { height: 300px; position: relative; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #f1f5f9; }
+        .btn-edit { background: #fef9c3; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-delete { background: #fee2e2; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; color: #991b1b; }
+        .hidden { display: none; }
+        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+        input, select, textarea { padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-brand">ANALYTICS DASHBOARD</div>
+    <div>
+        <button onclick="showPage('dashboardPage')" style="padding:8px 15px; border-radius:6px; border:1px solid #ddd; cursor:pointer">Dashboard</button>
+        <button onclick="prepareNewEntry()" style="padding:8px 15px; border-radius:6px; background:var(--primary); color:white; border:none; cursor:pointer">+ Entry</button>
+    </div>
+</nav>
+
+<div class="container">
+    <div id="dashboardPage" class="page active">
+        <div class="stats-grid">
+            <div class="card stat-card"><h3>Income</h3><p style="color:var(--income)" id="dashIncome">$0</p></div>
+            <div class="card stat-card"><h3>Expenses</h3><p style="color:var(--expense)" id="dashExpense">$0</p></div>
+            <div class="card stat-card"><h3>Balance</h3><p id="dashBalance">$0</p></div>
+        </div>
+
+        <div class="visual-row">
+            <div class="card">
+                <h3>Spending Breakdown</h3>
+                <div class="chart-container"><canvas id="expenseChart"></canvas></div>
+            </div>
+            <div class="card">
+                <h3>History</h3>
+                <table>
+                    <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Action</th></tr></thead>
+                    <tbody id="historyBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="inputPage" class="page">
+        <div class="card" style="max-width:500px; margin:auto;">
+            <h2 id="formTitle">Add Transaction</h2>
+            <input type="hidden" id="editIndex" value="-1">
+            <div class="form-group"><label>Date</label><input type="date" id="date"></div>
+            <div class="form-group"><label>Type</label><select id="type" onchange="updateCategories()"><option value="Income">Income</option><option value="Expense">Expense</option></select></div>
+            <div class="form-group"><label>Category</label><select id="category" onchange="checkOther()"></select></div>
+            <div id="otherCategoryWrapper" class="form-group hidden"><label>Custom Name</label><input type="text" id="otherCategoryText"></div>
+            <div class="form-group"><label>Amount</label><input type="number" id="amount" step="0.01"></div>
+            <div class="form-group"><label>Description</label><textarea id="description"></textarea></div>
+            <button onclick="saveEntry()" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:8px; cursor:pointer">Save Transaction</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let transactions = JSON.parse(localStorage.getItem('myFinances_v4')) || [];
+    let myChart = null;
+
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        if(pageId === 'dashboardPage') renderDashboard();
+    }
+
+    function updateCategories(selectedCat = null) {
+        const type = document.getElementById('type').value;
+        const list = type === 'Income' ? ["Salary", "Gift", "Other"] : ["Travel", "Food", "Shopping", "Other"];
+        const catSelect = document.getElementById('category');
+        catSelect.innerHTML = list.map(c => `<option value="${c}">${c}</option>`).join('');
+        if(selectedCat) catSelect.value = list.includes(selectedCat) ? selectedCat : "Other";
+        checkOther();
+    }
+
+    function checkOther() {
+        document.getElementById('otherCategoryWrapper').className = document.getElementById('category').value === 'Other' ? 'form-group' : 'hidden';
+    }
+
+    function prepareNewEntry() {
+        document.getElementById('editIndex').value = "-1";
+        document.getElementById('formTitle').innerText = "New Transaction";
+        document.getElementById('date').valueAsDate = new Date();
+        document.getElementById('amount').value = '';
+        updateCategories();
+        showPage('inputPage');
+    }
+
+    function saveEntry() {
+        const idx = parseInt(document.getElementById('editIndex').value);
+        const entry = {
+            date: document.getElementById('date').value,
+            type: document.getElementById('type').value,
+            category: document.getElementById('category').value === 'Other' ? document.getElementById('otherCategoryText').value : document.getElementById('category').value,
+            amount: parseFloat(document.getElementById('amount').value),
+            description: document.getElementById('description').value
+        };
+        if(idx > -1) transactions[idx] = entry; else transactions.push(entry);
+        localStorage.setItem('myFinances_v4', JSON.stringify(transactions));
+        showPage('dashboardPage');
+    }
+
+    function deleteEntry(i) { if(confirm("Delete?")) { transactions.splice(i, 1); localStorage.setItem('myFinances_v4', JSON.stringify(transactions)); renderDashboard(); } }
+
+    function editEntry(i) {
+        const t = transactions[i];
+        document.getElementById('editIndex').value = i;
+        document.getElementById('date').value = t.date;
+        document.getElementById('type').value = t.type;
+        document.getElementById('amount').value = t.amount;
+        updateCategories(t.category);
+        showPage('inputPage');
+    }
+
+    function renderDashboard() {
+        const body = document.getElementById('historyBody');
+        let inc = 0, exp = 0, catMap = {};
+        body.innerHTML = '';
+        transactions.forEach((t, i) => {
+            if(t.type === 'Income') inc += t.amount; else {
+                exp += t.amount;
+                catMap[t.category] = (catMap[t.category] || 0) + t.amount;
+            }
+            body.innerHTML += `<tr><td>${t.date}</td><td>${t.category}</td><td>$${t.amount}</td>
+                <td><button class="btn-edit" onclick="editEntry(${i})">✏️</button>
+                <button class="btn-delete" onclick="deleteEntry(${i})">🗑️</button></td></tr>`;
+        });
+        document.getElementById('dashIncome').innerText = `$${inc.toFixed(2)}`;
+        document.getElementById('dashExpense').innerText = `$${exp.toFixed(2)}`;
+        document.getElementById('dashBalance').innerText = `$${(inc - exp).toFixed(2)}`;
+        updateChart(catMap);
+    }
+
+    function updateChart(data) {
+        const ctx = document.getElementById('expenseChart').getContext('2d');
+        if(myChart) myChart.destroy();
+        myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: { labels: Object.keys(data), datasets: [{ data: Object.values(data), backgroundColor: ['#6366f1', '#10b981', '#f43f5e', '#fbbf24', '#a855f7'] }] },
+            options: { maintainAspectRatio: false }
+        });
+    }
+    renderDashboard();
+</script>
+</body>
+</html>
