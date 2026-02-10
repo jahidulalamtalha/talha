@@ -9,7 +9,8 @@
         :root { --primary: #6366f1; --income: #10b981; --expense: #f43f5e; --bg: #f8fafc; --text: #1e293b; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: var(--text); }
         nav { background: white; padding: 1rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-weight: 800; color: var(--primary); }
+        .nav-brand { font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .nav-buttons { display: flex; gap: 10px; }
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
         .page { display: none; }
         .page.active { display: block; }
@@ -18,31 +19,42 @@
         .stat-card p { font-size: 1.8rem; font-weight: 800; margin: 10px 0 0; }
         .visual-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
         .chart-container { height: 300px; position: relative; }
-        table { width: 100%; border-collapse: collapse; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { text-align: left; padding: 12px; border-bottom: 1px solid #f1f5f9; }
-        .btn-edit { background: #fef9c3; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-        .btn-delete { background: #fee2e2; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; color: #991b1b; }
+        tr:hover { background: #f8fafc; }
+        .btn { padding: 8px 15px; border-radius: 6px; cursor: pointer; border: 1px solid #ddd; font-weight: 500; transition: 0.2s; }
+        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn-export { background: #0f172a; color: white; border: none; }
+        .btn-edit { background: #fef9c3; border: none; padding: 5px 10px; border-radius: 4px; }
+        .btn-delete { background: #fee2e2; border: none; padding: 5px 10px; border-radius: 4px; color: #991b1b; }
         .hidden { display: none; }
         .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-        input, select, textarea { padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; }
+        label { font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        input, select, textarea { padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; }
+        
+        @media print {
+            nav, .nav-buttons, .btn-edit, .btn-delete { display: none !important; }
+            .card { box-shadow: none; border: 1px solid #eee; }
+        }
     </style>
 </head>
 <body>
 
 <nav>
     <div class="nav-brand">ANALYTICS DASHBOARD</div>
-    <div>
-        <button onclick="showPage('dashboardPage')" style="padding:8px 15px; border-radius:6px; border:1px solid #ddd; cursor:pointer">Dashboard</button>
-        <button onclick="prepareNewEntry()" style="padding:8px 15px; border-radius:6px; background:var(--primary); color:white; border:none; cursor:pointer">+ Entry</button>
+    <div class="nav-buttons">
+        <button class="btn" onclick="showPage('dashboardPage')">Dashboard</button>
+        <button class="btn btn-export" onclick="exportCSV()">Download CSV</button>
+        <button class="btn btn-primary" onclick="prepareNewEntry()">+ Entry</button>
     </div>
 </nav>
 
 <div class="container">
     <div id="dashboardPage" class="page active">
         <div class="stats-grid">
-            <div class="card stat-card"><h3>Income</h3><p style="color:var(--income)" id="dashIncome">$0</p></div>
-            <div class="card stat-card"><h3>Expenses</h3><p style="color:var(--expense)" id="dashExpense">$0</p></div>
-            <div class="card stat-card"><h3>Balance</h3><p id="dashBalance">$0</p></div>
+            <div class="card stat-card"><h3>Total Income</h3><p style="color:var(--income)" id="dashIncome">$0</p></div>
+            <div class="card stat-card"><h3>Total Expenses</h3><p style="color:var(--expense)" id="dashExpense">$0</p></div>
+            <div class="card stat-card"><h3>Net Balance</h3><p id="dashBalance" style="color:var(--primary)">$0</p></div>
         </div>
 
         <div class="visual-row">
@@ -51,26 +63,59 @@
                 <div class="chart-container"><canvas id="expenseChart"></canvas></div>
             </div>
             <div class="card">
-                <h3>History</h3>
-                <table>
-                    <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Action</th></tr></thead>
-                    <tbody id="historyBody"></tbody>
-                </table>
+                <h3>Recent Transactions</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Action</th></tr></thead>
+                        <tbody id="historyBody"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="inputPage" class="page">
         <div class="card" style="max-width:500px; margin:auto;">
-            <h2 id="formTitle">Add Transaction</h2>
+            <h2 id="formTitle" style="margin-top:0">Add Transaction</h2>
             <input type="hidden" id="editIndex" value="-1">
-            <div class="form-group"><label>Date</label><input type="date" id="date"></div>
-            <div class="form-group"><label>Type</label><select id="type" onchange="updateCategories()"><option value="Income">Income</option><option value="Expense">Expense</option></select></div>
-            <div class="form-group"><label>Category</label><select id="category" onchange="checkOther()"></select></div>
-            <div id="otherCategoryWrapper" class="form-group hidden"><label>Custom Name</label><input type="text" id="otherCategoryText"></div>
-            <div class="form-group"><label>Amount</label><input type="number" id="amount" step="0.01"></div>
-            <div class="form-group"><label>Description</label><textarea id="description"></textarea></div>
-            <button onclick="saveEntry()" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:8px; cursor:pointer">Save Transaction</button>
+            
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="date">
+            </div>
+            
+            <div class="form-group">
+                <label>Type</label>
+                <select id="type" onchange="updateCategories()">
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Category</label>
+                <select id="category" onchange="checkOther()"></select>
+            </div>
+            
+            <div id="otherCategoryWrapper" class="form-group hidden">
+                <label>Custom Category Name</label>
+                <input type="text" id="otherCategoryText" placeholder="Enter category name">
+            </div>
+            
+            <div class="form-group">
+                <label>Amount ($)</label>
+                <input type="number" id="amount" step="0.01" placeholder="0.00">
+            </div>
+            
+            <div class="form-group">
+                <label>Description (Optional)</label>
+                <textarea id="description" rows="2"></textarea>
+            </div>
+            
+            <div style="display:flex; gap: 10px;">
+                <button class="btn" style="flex:1" onclick="showPage('dashboardPage')">Cancel</button>
+                <button class="btn btn-primary" style="flex:2" onclick="saveEntry()">Save Transaction</button>
+            </div>
         </div>
     </div>
 </div>
@@ -78,6 +123,10 @@
 <script>
     let transactions = JSON.parse(localStorage.getItem('myFinances_v4')) || [];
     let myChart = null;
+
+    // Updated categories as per request
+    const expenseCategories = ["House Rent", "Grocery", "Medicine", "Conveyance", "Travel", "Food", "Shopping", "Fruits", "Donations", "Other"];
+    const incomeCategories = ["Salary", "Business", "Freelance", "Gift", "Other"];
 
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -87,15 +136,25 @@
 
     function updateCategories(selectedCat = null) {
         const type = document.getElementById('type').value;
-        const list = type === 'Income' ? ["Salary", "Gift", "Other"] : ["Travel", "Food", "Shopping", "Other"];
+        const list = type === 'Income' ? incomeCategories : expenseCategories;
         const catSelect = document.getElementById('category');
+        
         catSelect.innerHTML = list.map(c => `<option value="${c}">${c}</option>`).join('');
-        if(selectedCat) catSelect.value = list.includes(selectedCat) ? selectedCat : "Other";
+        
+        if(selectedCat) {
+            if(list.includes(selectedCat)) {
+                catSelect.value = selectedCat;
+            } else {
+                catSelect.value = "Other";
+                document.getElementById('otherCategoryText').value = selectedCat;
+            }
+        }
         checkOther();
     }
 
     function checkOther() {
-        document.getElementById('otherCategoryWrapper').className = document.getElementById('category').value === 'Other' ? 'form-group' : 'hidden';
+        const isOther = document.getElementById('category').value === 'Other';
+        document.getElementById('otherCategoryWrapper').classList.toggle('hidden', !isOther);
     }
 
     function prepareNewEntry() {
@@ -103,32 +162,52 @@
         document.getElementById('formTitle').innerText = "New Transaction";
         document.getElementById('date').valueAsDate = new Date();
         document.getElementById('amount').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('otherCategoryText').value = '';
         updateCategories();
         showPage('inputPage');
     }
 
     function saveEntry() {
         const idx = parseInt(document.getElementById('editIndex').value);
+        const amount = parseFloat(document.getElementById('amount').value);
+        
+        if(!amount || amount <= 0) return alert("Please enter a valid amount");
+
+        const categoryVal = document.getElementById('category').value;
+        const finalCategory = categoryVal === 'Other' ? document.getElementById('otherCategoryText').value : categoryVal;
+
         const entry = {
             date: document.getElementById('date').value,
             type: document.getElementById('type').value,
-            category: document.getElementById('category').value === 'Other' ? document.getElementById('otherCategoryText').value : document.getElementById('category').value,
-            amount: parseFloat(document.getElementById('amount').value),
+            category: finalCategory || "Uncategorized",
+            amount: amount,
             description: document.getElementById('description').value
         };
-        if(idx > -1) transactions[idx] = entry; else transactions.push(entry);
+
+        if(idx > -1) transactions[idx] = entry; 
+        else transactions.push(entry);
+
         localStorage.setItem('myFinances_v4', JSON.stringify(transactions));
         showPage('dashboardPage');
     }
 
-    function deleteEntry(i) { if(confirm("Delete?")) { transactions.splice(i, 1); localStorage.setItem('myFinances_v4', JSON.stringify(transactions)); renderDashboard(); } }
+    function deleteEntry(i) {
+        if(confirm("Are you sure you want to delete this record?")) {
+            transactions.splice(i, 1);
+            localStorage.setItem('myFinances_v4', JSON.stringify(transactions));
+            renderDashboard();
+        }
+    }
 
     function editEntry(i) {
         const t = transactions[i];
         document.getElementById('editIndex').value = i;
+        document.getElementById('formTitle').innerText = "Edit Transaction";
         document.getElementById('date').value = t.date;
         document.getElementById('type').value = t.type;
         document.getElementById('amount').value = t.amount;
+        document.getElementById('description').value = t.description;
         updateCategories(t.category);
         showPage('inputPage');
     }
@@ -136,32 +215,97 @@
     function renderDashboard() {
         const body = document.getElementById('historyBody');
         let inc = 0, exp = 0, catMap = {};
+        
+        // Sort transactions by date descending
+        const sortedTransactions = [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date));
+        
         body.innerHTML = '';
         transactions.forEach((t, i) => {
-            if(t.type === 'Income') inc += t.amount; else {
+            if(t.type === 'Income') {
+                inc += t.amount;
+            } else {
                 exp += t.amount;
                 catMap[t.category] = (catMap[t.category] || 0) + t.amount;
             }
-            body.innerHTML += `<tr><td>${t.date}</td><td>${t.category}</td><td>$${t.amount}</td>
-                <td><button class="btn-edit" onclick="editEntry(${i})">✏️</button>
-                <button class="btn-delete" onclick="deleteEntry(${i})">🗑️</button></td></tr>`;
         });
-        document.getElementById('dashIncome').innerText = `$${inc.toFixed(2)}`;
-        document.getElementById('dashExpense').innerText = `$${exp.toFixed(2)}`;
-        document.getElementById('dashBalance').innerText = `$${(inc - exp).toFixed(2)}`;
+
+        // Populate Table with original index for edit/delete
+        sortedTransactions.forEach((t) => {
+            const originalIndex = transactions.indexOf(t);
+            body.innerHTML += `
+                <tr>
+                    <td>${t.date}</td>
+                    <td><span style="font-size:0.8rem; color:#64748b">${t.type}</span><br><b>${t.category}</b></td>
+                    <td style="color: ${t.type === 'Income' ? 'var(--income)' : 'var(--expense)'}">
+                        ${t.type === 'Income' ? '+' : '-'}$${t.amount.toFixed(2)}
+                    </td>
+                    <td>
+                        <button class="btn-edit" onclick="editEntry(${originalIndex})">✏️</button>
+                        <button class="btn-delete" onclick="deleteEntry(${originalIndex})">🗑️</button>
+                    </td>
+                </tr>`;
+        });
+
+        document.getElementById('dashIncome').innerText = `$${inc.toLocaleString()}`;
+        document.getElementById('dashExpense').innerText = `$${exp.toLocaleString()}`;
+        document.getElementById('dashBalance').innerText = `$${(inc - exp).toLocaleString()}`;
+        
         updateChart(catMap);
     }
 
     function updateChart(data) {
         const ctx = document.getElementById('expenseChart').getContext('2d');
         if(myChart) myChart.destroy();
+        
+        const labels = Object.keys(data);
+        if(labels.length === 0) {
+            ctx.font = "14px Inter";
+            ctx.textAlign = "center";
+            ctx.fillText("No expense data to display", 150, 150);
+            return;
+        }
+
         myChart = new Chart(ctx, {
             type: 'doughnut',
-            data: { labels: Object.keys(data), datasets: [{ data: Object.values(data), backgroundColor: ['#6366f1', '#10b981', '#f43f5e', '#fbbf24', '#a855f7'] }] },
-            options: { maintainAspectRatio: false }
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: Object.values(data),
+                    backgroundColor: ['#6366f1', '#10b981', '#f43f5e', '#fbbf24', '#a855f7', '#06b6d4', '#f97316', '#64748b']
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } } }
+            }
         });
     }
+
+    function exportCSV() {
+        if (transactions.length === 0) return alert("No data to export");
+
+        // Sort data month-wise for the CSV
+        const sorted = [...transactions].sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "Date,Type,Category,Amount,Description\n";
+
+        sorted.forEach(t => {
+            csvContent += `${t.date},${t.type},${t.category},${t.amount},"${t.description.replace(/"/g, '""')}"\n`;
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `Finance_Report_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // Initialize
     renderDashboard();
 </script>
+
 </body>
 </html>
