@@ -1,310 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Pro + Analytics</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root { --primary: #6366f1; --income: #10b981; --expense: #f43f5e; --bg: #f8fafc; --text: #1e293b; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: var(--text); }
-        nav { background: white; padding: 1rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .nav-brand { font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
-        .nav-buttons { display: flex; gap: 10px; }
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .page { display: none; }
-        .page.active { display: block; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
-        .stat-card p { font-size: 1.8rem; font-weight: 800; margin: 10px 0 0; }
-        .visual-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; }
-        .chart-container { height: 300px; position: relative; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #f1f5f9; }
-        tr:hover { background: #f8fafc; }
-        .btn { padding: 8px 15px; border-radius: 6px; cursor: pointer; border: 1px solid #ddd; font-weight: 500; transition: 0.2s; }
-        .btn-primary { background: var(--primary); color: white; border: none; }
-        .btn-export { background: #0f172a; color: white; border: none; }
-        .btn-edit { background: #fef9c3; border: none; padding: 5px 10px; border-radius: 4px; }
-        .btn-delete { background: #fee2e2; border: none; padding: 5px 10px; border-radius: 4px; color: #991b1b; }
-        .hidden { display: none; }
-        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
-        input, select, textarea { padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; }
-        
-        @media print {
-            nav, .nav-buttons, .btn-edit, .btn-delete { display: none !important; }
-            .card { box-shadow: none; border: 1px solid #eee; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Pro + Analytics</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<style>
+:root { --primary:#6366f1; --income:#10b981; --expense:#f43f5e; --bg:#f8fafc; --text:#1e293b; }
+body { font-family: Inter, sans-serif; background:var(--bg); margin:0; color:var(--text); }
+nav { background:white; padding:1rem; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; }
+.nav-brand { font-weight:800; color:var(--primary); }
+.container { max-width:1100px; margin:30px auto; padding:0 20px; }
+.page { display:none; }
+.page.active { display:block; }
+.card { background:white; padding:20px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.1); margin-bottom:20px; }
+.stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.stat-card p { font-size:1.8rem; font-weight:800; }
+.visual-row { display:grid; grid-template-columns:1fr 1.5fr; gap:20px; }
+.chart-container { height:300px; }
+table { width:100%; border-collapse:collapse; }
+th,td { padding:12px; border-bottom:1px solid #f1f5f9; }
+.btn-edit { background:#fef9c3; border:none; padding:5px 10px; border-radius:4px; }
+.btn-delete { background:#fee2e2; border:none; padding:5px 10px; border-radius:4px; color:#991b1b; }
+.hidden { display:none; }
+.form-group { margin-bottom:15px; display:flex; flex-direction:column; }
+input,select,textarea { padding:10px; border-radius:8px; border:1px solid #cbd5e1; }
+button { cursor:pointer; }
+</style>
 </head>
+
 <body>
 
 <nav>
-    <div class="nav-brand">ANALYTICS DASHBOARD</div>
-    <div class="nav-buttons">
-        <button class="btn" onclick="showPage('dashboardPage')">Dashboard</button>
-        <button class="btn btn-export" onclick="exportCSV()">Download CSV</button>
-        <button class="btn btn-primary" onclick="prepareNewEntry()">+ Entry</button>
-    </div>
+<div class="nav-brand">ANALYTICS DASHBOARD</div>
+<div>
+<button onclick="showPage('dashboardPage')">Dashboard</button>
+<button onclick="prepareNewEntry()" style="background:var(--primary);color:white;border:none;">+ Entry</button>
+<button onclick="downloadCSV()">CSV</button>
+<button onclick="downloadExcel()">Excel</button>
+<button onclick="downloadChart()">Chart</button>
+</div>
 </nav>
 
 <div class="container">
-    <div id="dashboardPage" class="page active">
-        <div class="stats-grid">
-            <div class="card stat-card"><h3>Total Income</h3><p style="color:var(--income)" id="dashIncome">$0</p></div>
-            <div class="card stat-card"><h3>Total Expenses</h3><p style="color:var(--expense)" id="dashExpense">$0</p></div>
-            <div class="card stat-card"><h3>Net Balance</h3><p id="dashBalance" style="color:var(--primary)">$0</p></div>
-        </div>
 
-        <div class="visual-row">
-            <div class="card">
-                <h3>Spending Breakdown</h3>
-                <div class="chart-container"><canvas id="expenseChart"></canvas></div>
-            </div>
-            <div class="card">
-                <h3>Recent Transactions</h3>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Action</th></tr></thead>
-                        <tbody id="historyBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="dashboardPage" class="page active">
+<div class="stats-grid">
+<div class="card stat-card"><h3>Income</h3><p style="color:var(--income)" id="dashIncome">$0</p></div>
+<div class="card stat-card"><h3>Expenses</h3><p style="color:var(--expense)" id="dashExpense">$0</p></div>
+<div class="card stat-card"><h3>Savings</h3><p id="dashBalance">$0</p></div>
+</div>
 
-    <div id="inputPage" class="page">
-        <div class="card" style="max-width:500px; margin:auto;">
-            <h2 id="formTitle" style="margin-top:0">Add Transaction</h2>
-            <input type="hidden" id="editIndex" value="-1">
-            
-            <div class="form-group">
-                <label>Date</label>
-                <input type="date" id="date">
-            </div>
-            
-            <div class="form-group">
-                <label>Type</label>
-                <select id="type" onchange="updateCategories()">
-                    <option value="Income">Income</option>
-                    <option value="Expense">Expense</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Category</label>
-                <select id="category" onchange="checkOther()"></select>
-            </div>
-            
-            <div id="otherCategoryWrapper" class="form-group hidden">
-                <label>Custom Category Name</label>
-                <input type="text" id="otherCategoryText" placeholder="Enter category name">
-            </div>
-            
-            <div class="form-group">
-                <label>Amount ($)</label>
-                <input type="number" id="amount" step="0.01" placeholder="0.00">
-            </div>
-            
-            <div class="form-group">
-                <label>Description (Optional)</label>
-                <textarea id="description" rows="2"></textarea>
-            </div>
-            
-            <div style="display:flex; gap: 10px;">
-                <button class="btn" style="flex:1" onclick="showPage('dashboardPage')">Cancel</button>
-                <button class="btn btn-primary" style="flex:2" onclick="saveEntry()">Save Transaction</button>
-            </div>
-        </div>
-    </div>
+<div class="visual-row">
+<div class="card">
+<h3>Monthly Overview</h3>
+<div class="chart-container"><canvas id="monthlyChart"></canvas></div>
+</div>
+
+<div class="card">
+<h3>History</h3>
+<table>
+<thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Action</th></tr></thead>
+<tbody id="historyBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="inputPage" class="page">
+<div class="card" style="max-width:500px;margin:auto;">
+<h2 id="formTitle">Add Transaction</h2>
+<input type="hidden" id="editIndex" value="-1">
+
+<div class="form-group"><label>Date</label><input type="date" id="date"></div>
+
+<div class="form-group">
+<label>Type</label>
+<select id="type" onchange="updateCategories()">
+<option value="Income">Income</option>
+<option value="Expense">Expense</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Category</label>
+<select id="category"></select>
+</div>
+
+<div class="form-group"><label>Amount</label><input type="number" id="amount" step="0.01"></div>
+<div class="form-group"><label>Description</label><textarea id="description"></textarea></div>
+
+<button onclick="saveEntry()" style="width:100%;padding:15px;background:var(--primary);color:white;border:none;">Save</button>
+</div>
+</div>
+
 </div>
 
 <script>
-    let transactions = JSON.parse(localStorage.getItem('myFinances_v4')) || [];
-    let myChart = null;
+let transactions = JSON.parse(localStorage.getItem("myFinances_v5")) || [];
+let monthlyChart = null;
 
-    // Updated categories as per request
-    const expenseCategories = ["House Rent", "Grocery", "Medicine", "Conveyance", "Travel", "Food", "Shopping", "Fruits", "Donations", "Other"];
-    const incomeCategories = ["Salary", "Business", "Freelance", "Gift", "Other"];
+function showPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+if(id==="dashboardPage") renderDashboard();
+}
 
-    function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        if(pageId === 'dashboardPage') renderDashboard();
-    }
+function updateCategories(){
+const type = document.getElementById("type").value;
+const list = type==="Income"
+? ["Salary","Gift","Other"]
+: ["House Rent","Grocery","Medicine","Conveyance","Travel","Food","Shopping","Fruits","Donations","Others"];
+const cat = document.getElementById("category");
+cat.innerHTML = list.map(c=>`<option>${c}</option>`).join("");
+}
 
-    function updateCategories(selectedCat = null) {
-        const type = document.getElementById('type').value;
-        const list = type === 'Income' ? incomeCategories : expenseCategories;
-        const catSelect = document.getElementById('category');
-        
-        catSelect.innerHTML = list.map(c => `<option value="${c}">${c}</option>`).join('');
-        
-        if(selectedCat) {
-            if(list.includes(selectedCat)) {
-                catSelect.value = selectedCat;
-            } else {
-                catSelect.value = "Other";
-                document.getElementById('otherCategoryText').value = selectedCat;
-            }
-        }
-        checkOther();
-    }
+function prepareNewEntry(){
+document.getElementById("editIndex").value=-1;
+document.getElementById("date").valueAsDate=new Date();
+updateCategories();
+showPage("inputPage");
+}
 
-    function checkOther() {
-        const isOther = document.getElementById('category').value === 'Other';
-        document.getElementById('otherCategoryWrapper').classList.toggle('hidden', !isOther);
-    }
+function saveEntry(){
+const i = +document.getElementById("editIndex").value;
+const e = {
+date:date.value,
+type:type.value,
+category:category.value,
+amount:+amount.value,
+description:description.value
+};
+if(i>-1) transactions[i]=e; else transactions.push(e);
+localStorage.setItem("myFinances_v5",JSON.stringify(transactions));
+showPage("dashboardPage");
+}
 
-    function prepareNewEntry() {
-        document.getElementById('editIndex').value = "-1";
-        document.getElementById('formTitle').innerText = "New Transaction";
-        document.getElementById('date').valueAsDate = new Date();
-        document.getElementById('amount').value = '';
-        document.getElementById('description').value = '';
-        document.getElementById('otherCategoryText').value = '';
-        updateCategories();
-        showPage('inputPage');
-    }
+function renderDashboard(){
+let inc=0,exp=0;
+const body=document.getElementById("historyBody");
+body.innerHTML="";
+transactions.forEach((t,i)=>{
+t.type==="Income"?inc+=t.amount:exp+=t.amount;
+body.innerHTML+=`<tr><td>${t.date}</td><td>${t.category}</td><td>$${t.amount}</td>
+<td><button class="btn-delete" onclick="del(${i})">🗑️</button></td></tr>`;
+});
+dashIncome.innerText=`$${inc.toFixed(2)}`;
+dashExpense.innerText=`$${exp.toFixed(2)}`;
+dashBalance.innerText=`$${(inc-exp).toFixed(2)}`;
+renderMonthlyChart();
+}
 
-    function saveEntry() {
-        const idx = parseInt(document.getElementById('editIndex').value);
-        const amount = parseFloat(document.getElementById('amount').value);
-        
-        if(!amount || amount <= 0) return alert("Please enter a valid amount");
+function del(i){
+transactions.splice(i,1);
+localStorage.setItem("myFinances_v5",JSON.stringify(transactions));
+renderDashboard();
+}
 
-        const categoryVal = document.getElementById('category').value;
-        const finalCategory = categoryVal === 'Other' ? document.getElementById('otherCategoryText').value : categoryVal;
+function groupByMonth(){
+const m={};
+transactions.forEach(t=>{
+const k=t.date.slice(0,7);
+if(!m[k]) m[k]={inc:0,exp:0};
+t.type==="Income"?m[k].inc+=t.amount:m[k].exp+=t.amount;
+});
+return Object.keys(m).map(k=>({
+Month:k,
+Income:m[k].inc,
+Expense:m[k].exp,
+Savings:m[k].inc-m[k].exp
+}));
+}
 
-        const entry = {
-            date: document.getElementById('date').value,
-            type: document.getElementById('type').value,
-            category: finalCategory || "Uncategorized",
-            amount: amount,
-            description: document.getElementById('description').value
-        };
+function renderMonthlyChart(){
+const d=groupByMonth();
+const ctx=document.getElementById("monthlyChart");
+if(monthlyChart) monthlyChart.destroy();
+monthlyChart=new Chart(ctx,{
+type:"bar",
+data:{
+labels:d.map(x=>x.Month),
+datasets:[
+{label:"Income",data:d.map(x=>x.Income),backgroundColor:"#10b981"},
+{label:"Expense",data:d.map(x=>x.Expense),backgroundColor:"#f43f5e"},
+{label:"Savings",data:d.map(x=>x.Savings),backgroundColor:"#6366f1"}
+]
+},
+options:{responsive:true}
+});
+}
 
-        if(idx > -1) transactions[idx] = entry; 
-        else transactions.push(entry);
+function downloadCSV(){
+const d=groupByMonth();
+let csv="Month,Income,Expense,Savings\n";
+d.forEach(r=>csv+=`${r.Month},${r.Income},${r.Expense},${r.Savings}\n`);
+const a=document.createElement("a");
+a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+a.download="finance_monthly.csv";
+a.click();
+}
 
-        localStorage.setItem('myFinances_v4', JSON.stringify(transactions));
-        showPage('dashboardPage');
-    }
+function downloadExcel(){
+const wb=XLSX.utils.book_new();
+const ws=XLSX.utils.json_to_sheet(groupByMonth());
+XLSX.utils.book_append_sheet(wb,ws,"Summary");
+XLSX.writeFile(wb,"finance_monthly.xlsx");
+}
 
-    function deleteEntry(i) {
-        if(confirm("Are you sure you want to delete this record?")) {
-            transactions.splice(i, 1);
-            localStorage.setItem('myFinances_v4', JSON.stringify(transactions));
-            renderDashboard();
-        }
-    }
+function downloadChart(){
+const a=document.createElement("a");
+a.href=document.getElementById("monthlyChart").toDataURL("image/png");
+a.download="finance_chart.png";
+a.click();
+}
 
-    function editEntry(i) {
-        const t = transactions[i];
-        document.getElementById('editIndex').value = i;
-        document.getElementById('formTitle').innerText = "Edit Transaction";
-        document.getElementById('date').value = t.date;
-        document.getElementById('type').value = t.type;
-        document.getElementById('amount').value = t.amount;
-        document.getElementById('description').value = t.description;
-        updateCategories(t.category);
-        showPage('inputPage');
-    }
-
-    function renderDashboard() {
-        const body = document.getElementById('historyBody');
-        let inc = 0, exp = 0, catMap = {};
-        
-        // Sort transactions by date descending
-        const sortedTransactions = [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date));
-        
-        body.innerHTML = '';
-        transactions.forEach((t, i) => {
-            if(t.type === 'Income') {
-                inc += t.amount;
-            } else {
-                exp += t.amount;
-                catMap[t.category] = (catMap[t.category] || 0) + t.amount;
-            }
-        });
-
-        // Populate Table with original index for edit/delete
-        sortedTransactions.forEach((t) => {
-            const originalIndex = transactions.indexOf(t);
-            body.innerHTML += `
-                <tr>
-                    <td>${t.date}</td>
-                    <td><span style="font-size:0.8rem; color:#64748b">${t.type}</span><br><b>${t.category}</b></td>
-                    <td style="color: ${t.type === 'Income' ? 'var(--income)' : 'var(--expense)'}">
-                        ${t.type === 'Income' ? '+' : '-'}$${t.amount.toFixed(2)}
-                    </td>
-                    <td>
-                        <button class="btn-edit" onclick="editEntry(${originalIndex})">✏️</button>
-                        <button class="btn-delete" onclick="deleteEntry(${originalIndex})">🗑️</button>
-                    </td>
-                </tr>`;
-        });
-
-        document.getElementById('dashIncome').innerText = `$${inc.toLocaleString()}`;
-        document.getElementById('dashExpense').innerText = `$${exp.toLocaleString()}`;
-        document.getElementById('dashBalance').innerText = `$${(inc - exp).toLocaleString()}`;
-        
-        updateChart(catMap);
-    }
-
-    function updateChart(data) {
-        const ctx = document.getElementById('expenseChart').getContext('2d');
-        if(myChart) myChart.destroy();
-        
-        const labels = Object.keys(data);
-        if(labels.length === 0) {
-            ctx.font = "14px Inter";
-            ctx.textAlign = "center";
-            ctx.fillText("No expense data to display", 150, 150);
-            return;
-        }
-
-        myChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: labels,
-                datasets: [{
-                    data: Object.values(data),
-                    backgroundColor: ['#6366f1', '#10b981', '#f43f5e', '#fbbf24', '#a855f7', '#06b6d4', '#f97316', '#64748b']
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, usePointStyle: true } } }
-            }
-        });
-    }
-
-    function exportCSV() {
-        if (transactions.length === 0) return alert("No data to export");
-
-        // Sort data month-wise for the CSV
-        const sorted = [...transactions].sort((a, b) => new Date(a.date) - new Date(b.date));
-        
-        let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += "Date,Type,Category,Amount,Description\n";
-
-        sorted.forEach(t => {
-            csvContent += `${t.date},${t.type},${t.category},${t.amount},"${t.description.replace(/"/g, '""')}"\n`;
-        });
-
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", `Finance_Report_${new Date().toISOString().split('T')[0]}.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    // Initialize
-    renderDashboard();
+updateCategories();
+renderDashboard();
 </script>
 
 </body>
