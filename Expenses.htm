@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceMaster Pro</title>
+    <title>FinanceMaster Pro (Cloud)</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
     <style>
         :root {
@@ -49,6 +53,11 @@
         }
         .nav-item:hover, .nav-item.active { background: var(--primary-light); color: var(--primary); }
         .nav-item i { font-size: 1.2rem; }
+
+        /* CLOUD STATUS INDICATOR */
+        .status-box { margin-top: auto; font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; background: #f8fafc; padding: 10px; border-radius: 8px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
+        .dot.online { background: #10b981; box-shadow: 0 0 5px #10b981; }
 
         /* MAIN CONTENT */
         main { flex: 1; padding: 30px; overflow-y: auto; position: relative; }
@@ -98,6 +107,7 @@
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; color: var(--text-muted); }
+        .hidden { display: none; }
 
         /* UTILS */
         .text-green { color: var(--success); }
@@ -110,6 +120,7 @@
         @media (max-width: 768px) {
             body { flex-direction: column; overflow: auto; }
             aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 10px; border-bottom: 1px solid #ddd; border-right: none; }
+            .status-box { display: none; }
             main { padding: 15px; }
             .grid-3, .grid-2 { grid-template-columns: 1fr; }
             .header { flex-direction: column; align-items: flex-start; gap: 15px; }
@@ -129,6 +140,10 @@
     </div>
     <div class="nav-item" onclick="openSettings()">
         <i class="ph ph-gear"></i> Settings / Data
+    </div>
+    <div class="status-box">
+        <div class="dot" id="cloudDot"></div>
+        <span id="cloudText">Connecting...</span>
     </div>
 </aside>
 
@@ -206,7 +221,7 @@
             <button class="btn-icon" onclick="closeModal()"><i class="ph ph-x" style="font-size:1.5rem"></i></button>
         </div>
         
-        <input type="hidden" id="editIndex">
+        <input type="hidden" id="editId">
         
         <div class="form-grid">
             <div class="form-group">
@@ -263,19 +278,41 @@
         <hr style="margin: 20px 0; border:none; border-top:1px solid #e2e8f0;">
         
         <h3>Data Management</h3>
+        <p style="font-size:0.8rem; color:var(--text-muted)">Data is now synced to Cloud automatically.</p>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-            <button class="btn btn-outline" onclick="downloadJSON()"><i class="ph ph-download"></i> Backup Data</button>
-            <button class="btn btn-outline" onclick="document.getElementById('fileUpload').click()"><i class="ph ph-upload"></i> Restore Data</button>
+            <button class="btn btn-outline" onclick="downloadJSON()"><i class="ph ph-download"></i> Backup File</button>
+            <button class="btn btn-outline" onclick="document.getElementById('fileUpload').click()"><i class="ph ph-upload"></i> Restore File</button>
             <input type="file" id="fileUpload" style="display:none" onchange="restoreData(this)">
         </div>
     </div>
 </div>
 
 <script>
+    // --- 1. FIREBASE CONFIGURATION (Your Specific Keys) ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyBkPRveBq5gwuiXS6l4qIQOYm7jm5fNQcA",
+        authDomain: "financeapp-599c5.firebaseapp.com",
+        projectId: "financeapp-599c5",
+        storageBucket: "financeapp-599c5.firebasestorage.app",
+        messagingSenderId: "657979034906",
+        appId: "1:657979034906:web:c74d5c2f30e7a0292870a3",
+        measurementId: "G-2VF5LLQP5L"
+    };
+
+    // Initialize Firebase
+    if(firebase.apps.length === 0) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.firestore();
+
     // --- STATE MANAGEMENT ---
-    let transactions = JSON.parse(localStorage.getItem('finPro_tx')) || [];
-    let appSettings = JSON.parse(localStorage.getItem('finPro_settings')) || { budget: 0 };
+    let transactions = [];
+    let appSettings = { budget: 0 };
     
+    // UI References
+    const cloudDot = document.getElementById('cloudDot');
+    const cloudText = document.getElementById('cloudText');
+
     // --- CONFIGURATION ---
     const categories = {
         Expense: {
@@ -295,24 +332,68 @@
     window.onload = () => {
         const now = new Date();
         document.getElementById('filterMonth').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-        document.getElementById('setBudget').value = appSettings.budget;
-        renderDashboard();
+        
+        // Connect to Cloud
+        initFirebaseConnection();
     };
 
-    // --- MODAL CONTROLS ---
-    function openModal(idx = -1) {
-        document.getElementById('entryModal').classList.add('open');
-        document.getElementById('editIndex').value = idx;
-        document.getElementById('modalTitle').innerText = idx === -1 ? "New Transaction" : "Edit Transaction";
+    // --- FIREBASE LOGIC ---
+    function initFirebaseConnection() {
+        cloudText.innerText = "Syncing...";
         
-        if (idx === -1) {
+        // Listen to "finance_data" collection, document "user_data"
+        db.collection("finance_data").doc("user_data").onSnapshot((doc) => {
+            cloudDot.classList.add('online');
+            cloudText.innerText = "Cloud Active";
+            
+            if (doc.exists) {
+                const data = doc.data();
+                transactions = data.list || [];
+                appSettings = data.settings || { budget: 0 };
+                
+                // Update Budget UI from Cloud data
+                document.getElementById('setBudget').value = appSettings.budget;
+                renderDashboard();
+            } else {
+                console.log("New database. Waiting for entry.");
+            }
+        }, (error) => {
+            console.error("Sync error:", error);
+            cloudDot.classList.remove('online');
+            cloudDot.style.background = "red";
+            cloudText.innerText = "Offline/Error";
+        });
+    }
+
+    function saveToCloud() {
+        cloudText.innerText = "Saving...";
+        db.collection("finance_data").doc("user_data").set({
+            list: transactions,
+            settings: appSettings
+        })
+        .then(() => {
+            cloudText.innerText = "Saved";
+            setTimeout(() => cloudText.innerText = "Cloud Active", 2000);
+        })
+        .catch((err) => {
+            alert("Error saving to cloud: " + err);
+        });
+    }
+
+    // --- MODAL CONTROLS ---
+    function openModal(id = null) {
+        document.getElementById('entryModal').classList.add('open');
+        document.getElementById('editId').value = id || "";
+        document.getElementById('modalTitle').innerText = id ? "Edit Transaction" : "New Transaction";
+        
+        if (!id) {
             document.getElementById('inpDate').valueAsDate = new Date();
             document.getElementById('inpAmount').value = '';
             document.getElementById('inpDesc').value = '';
             document.getElementById('inpType').value = 'Expense';
             updateCategories();
         } else {
-            const t = transactions[idx];
+            const t = transactions.find(x => x.id == id);
             document.getElementById('inpDate').value = t.date;
             document.getElementById('inpType').value = t.type;
             document.getElementById('inpAmount').value = t.amount;
@@ -350,7 +431,7 @@
     }
 
     function saveTransaction() {
-        const idx = parseInt(document.getElementById('editIndex').value);
+        const id = document.getElementById('editId').value;
         const type = document.getElementById('inpType').value;
         const catVal = document.getElementById('inpCategory').value;
         const customCat = document.getElementById('inpOther').value;
@@ -359,7 +440,7 @@
         if(!amount) return alert("Please enter a valid amount");
 
         const entry = {
-            id: Date.now(), // Unique ID for safer handling
+            id: id ? parseFloat(id) : Date.now(),
             date: document.getElementById('inpDate').value,
             type: type,
             category: catVal === 'Other' ? customCat : catVal,
@@ -367,30 +448,29 @@
             description: document.getElementById('inpDesc').value
         };
 
-        if(idx > -1) transactions[idx] = entry; 
-        else transactions.push(entry);
+        if(id) {
+            const index = transactions.findIndex(t => t.id == id);
+            if(index !== -1) transactions[index] = entry;
+        } else {
+            transactions.push(entry);
+        }
 
-        saveData();
+        saveToCloud();
         closeModal();
-        renderDashboard();
     }
 
-    function deleteEntry(idx) {
+    function deleteEntry(id) {
         if(confirm("Are you sure?")) {
-            transactions.splice(idx, 1);
-            saveData();
-            renderDashboard();
+            transactions = transactions.filter(t => t.id !== id);
+            saveToCloud();
         }
     }
 
     function saveSettings() {
         appSettings.budget = parseFloat(document.getElementById('setBudget').value) || 0;
-        localStorage.setItem('finPro_settings', JSON.stringify(appSettings));
+        saveToCloud();
         closeSettings();
-        renderDashboard();
     }
-
-    function saveData() { localStorage.setItem('finPro_tx', JSON.stringify(transactions)); }
 
     // --- DASHBOARD LOGIC ---
     function renderDashboard() {
@@ -430,17 +510,12 @@
         const tbody = document.getElementById('txList');
         tbody.innerHTML = '';
         
-        // Sort by date descending
         const sorted = [...filtered].sort((a,b) => new Date(b.date) - new Date(a.date));
 
         sorted.forEach(t => {
-            // Find icon
             let icon = "📦"; 
             if(categories[t.type] && categories[t.type][t.category]) icon = categories[t.type][t.category];
             
-            // Find original index
-            const originalIdx = transactions.indexOf(t);
-
             tbody.innerHTML += `
                 <tr>
                     <td>${t.date}</td>
@@ -457,8 +532,8 @@
                         </span>
                     </td>
                     <td>
-                        <button class="btn-icon" onclick="openModal(${originalIdx})"><i class="ph ph-pencil-simple"></i></button>
-                        <button class="btn-icon" style="color:var(--danger)" onclick="deleteEntry(${originalIdx})"><i class="ph ph-trash"></i></button>
+                        <button class="btn-icon" onclick="openModal(${t.id})"><i class="ph ph-pencil-simple"></i></button>
+                        <button class="btn-icon" style="color:var(--danger)" onclick="deleteEntry(${t.id})"><i class="ph ph-trash"></i></button>
                     </td>
                 </tr>
             `;
@@ -469,7 +544,6 @@
     }
 
     function updateCharts(catData, inc, exp) {
-        // Doughnut Chart (Expenses)
         const ctxD = document.getElementById('doughnutChart').getContext('2d');
         if(chartInstanceDoughnut) chartInstanceDoughnut.destroy();
         
@@ -490,7 +564,6 @@
             }
         });
 
-        // Bar Chart (Income vs Expense)
         const ctxB = document.getElementById('barChart').getContext('2d');
         if(chartInstanceBar) chartInstanceBar.destroy();
 
@@ -549,9 +622,9 @@
                 const data = JSON.parse(e.target.result);
                 if(Array.isArray(data)) {
                     transactions = data;
-                    saveData();
-                    renderDashboard();
-                    alert("Data restored successfully!");
+                    // Push restored data to Cloud
+                    saveToCloud(); 
+                    alert("Data restored and synced to Cloud!");
                 } else {
                     alert("Invalid file format.");
                 }
